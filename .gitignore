@@ -1,0 +1,63 @@
+# common backup files
+*~
+*.swp
+*.old
+*.bak
+._*
+
+# directory files
+*.directory
+.DS_Store
+
+# eclipse
+.settings
+.buildpath
+.classpath
+.project
+.scala_dependencies
+.pmd
+.pydevproject
+*.pyc
+
+# idea
+.idea
+*.ipr
+*.iws
+*.iml
+
+# log files and folders
+logs
+*.log
+
+# netbeans
+nbproject
+project.xml
+
+# maven
+release.properties
+pom.xml.releaseBackup
+
+/android/local.properties
+/android/bin
+/android/out
+/android/*.apk
+/android/gen
+
+/latex/*/*-blx.bib
+/latex/*/*.aux
+/latex/*/*.bbl
+/latex/*/*.blg
+/latex/*/*.fdb_latexmk
+/latex/*/*.lof
+/latex/*/*.lol
+/latex/*/*.mp
+/latex/*/*.out
+/latex/*/*.pdf
+/latex/*/*.tmp
+/latex/*/*.toc
+/latex/*/*.top
+/latex/*/*.tui
+/latex/*/*.tuo
+/latex/*/*.run.xml
+/latex/*/*.synctex.gz
+
