@@ -11,5 +11,5 @@ This project is part of an assignment for *Interactive Multimedia Systems* at th
 - Android SDK 2.3.3 or higher
 
 #### Running
-- Android 2.3.3 or hight
+- Android 2.3.3 or higher
 
