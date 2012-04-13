@@ -6,10 +6,10 @@ This project is part of an assignment for *Interactive Multimedia Systems* at th
 ## Installation
 
 ### Requirements
-For building:
+#### Building
 - Java 1.6 or higher
 - Android SDK 2.3.3 or higher
 
-For running:
+#### Running
 - Android 2.3.3 or hight
 
