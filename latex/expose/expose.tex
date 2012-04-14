@@ -22,7 +22,38 @@
 \end{figure}
 
 \section*{Einleitung}
+Zur Zeit steigt die Nachfrage nach gut bedienbaren Stramingsystemen für den Heimbereich immer weiter an. Dabei wird nicht mehr nur auf die Installation und Wartbarkeit wert gelegt, sondern auch auf die Bedienbarkeit. Und doch können fest installierte Geräte mit Streamingsoftware meist nur über die eingesetzten Perephiegeräte gesteuert werden. \\
+Da sich in den meisten dieser Haushalte auch ein mobiles Endgerät befindet, wäre eine Steuerung der Software über diese Technologie  notwendig. Dabei spielt vor allem die Art der Steuerung eine wichtige Rolle. Der Benutzer soll nicht nur eine Oberfläche mit entsprechenden Schaltflächen vorfinden, sondern prägnante Gesten, die sich wie bei älteren Geräten vorfindbar, für eine simple Benutzung sorgen.\\
+Dieses Projekt soll sich mit der Umsetzung einer solchen Remotesteuerung aus einem mobilen Endgerät aus zur Streamingsoftware beschäftigen.
 
+\section*{Technologien}
+Aus der Problemstellung wird zunächst ersichtlich, dass für die Umsetzung zwei verschiedene Komponenten betrachtenten werden müssen. Dies ist einerseits die Software, die zum Abspielen und Streamen der Medieninhalte zuständig ist, sowie anderseits das mobile Endgerät, das als Fernsteuerung dienen wird. \\
+Für den Mediaplayer soll der VLC Player von VideoLan benutzt werden. Diese Software ist sowohl kostonlos, als auch für die gängigen Betriebssysteme verfügbar. Somit kann ein weiter Einsatz gewährleistet werden. Weiterhin besitzt der VLC eine HTTP-Schnittstelle, über die mittels \textit{controls}(Kontrollkommandos z.B. Start/Stop) und \textit{commands}(Einstellungen z.B. Lautstärke) der Player gesteuert werden kann. \\
+Auf der Seite des mobilen Endgeräts fiel die Wahl auf das verbreitete Android System. Die Entwicklung von Software für dieses System ist ohne Einschränkung der Entwicklungsumgebung möglich und die Distribution ist konstengünstiger und einfacher, als seine Konkurrenzsysteme. Den Entwicklern liegen bereits Smartphones mit verschiedenen Android-Versionen vor, um den Echtzeitbetrieb für eine breite Verteilung zu entwicklen und zu testen.
+\newpage
+
+\section*{Projektplanung}
+Für die Realisierung dieses Projektes gilt folgender Meilensteinplan:
+\begin{itemize}
+\item 1. Meilenstein
+\begin{itemize}
+\item Evaluierung des VLC-HTTP-Schnittstellenumfangs
+\item Layout aus den Vorgaben erstellen
+\item Umsetzung der ersten Steuerungskomponenten
+\end{itemize}
+\item 2. Meilenstein
+\begin{itemize}
+\item Implementierung der weiteren Steurungsfunktionen
+\item Evaluierung der Übermittlung von Metadaten an das Mobilgerät
+\item Implementierung der Previewfunktionalitäten
+\end{itemize}
+\item 3. Meilenstein
+\begin{itemize}
+\item Fertigstellung der Funktionalitäten
+\item Qualitätssicherung
+\item Isntallation auf mobilen Testgeräten
+\end{itemize}
+\end{itemize}
 \newpage
 \printbibliography
 
