@@ -1,4 +1,5 @@
-# Gesture Control - VLC Gesture Remote Control for Android
+# Gesture Remote
+## VLC Gesture Remote Control for Android
 
 ## Introduction
 This project is part of an assignment for *Interactive Multimedia Systems* at the [*Beuth University of Applied Sciences Berlin*](http://www.beuth-hochschule.de/).
