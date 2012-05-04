@@ -1,6 +1,6 @@
 package org.whiskeysierra.gestureremote.gesture;
 
-public enum DoubleTap implements PerformedGesture {
+public enum Zoom implements PerformedGesture {
 
     INSTANCE
 

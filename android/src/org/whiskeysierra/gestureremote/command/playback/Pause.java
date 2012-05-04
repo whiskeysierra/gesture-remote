@@ -4,6 +4,6 @@ import org.whiskeysierra.gestureremote.command.Command;
 
 public enum Pause implements Command {
 
-    INSTANCE;
+    INSTANCE
 
 }

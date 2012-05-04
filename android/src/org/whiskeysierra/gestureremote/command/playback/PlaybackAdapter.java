@@ -5,7 +5,9 @@ import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.gestureremote.gesture.DoubleTap;
+import org.whiskeysierra.gestureremote.gesture.Pinch;
 import org.whiskeysierra.gestureremote.gesture.SingleTap;
+import org.whiskeysierra.gestureremote.gesture.Zoom;
 
 final class PlaybackAdapter {
 
@@ -54,6 +56,16 @@ final class PlaybackAdapter {
 
     private void pause() {
         bus.post(Pause.INSTANCE);
+    }
+
+    @Subscribe
+    public void onPinch(Pinch _) {
+        bus.post(Window.INSTANCE);
+    }
+
+    @Subscribe
+    public void onZoom(Zoom _) {
+        bus.post(Fullscreen.INSTANCE);
     }
 
 }

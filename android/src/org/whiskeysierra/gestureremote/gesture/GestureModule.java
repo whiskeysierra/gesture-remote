@@ -6,7 +6,8 @@ public final class GestureModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(GestureListener.class).asEagerSingleton();
+        bind(SimpleGestureListener.class).asEagerSingleton();
+        bind(ComplexGestureListener.class).asEagerSingleton();
     }
 
 }

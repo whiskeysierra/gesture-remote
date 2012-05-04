@@ -11,8 +11,10 @@ import com.google.inject.Inject;
 import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.R;
 import org.whiskeysierra.R.id;
+import org.whiskeysierra.gestureremote.command.playback.Fullscreen;
 import org.whiskeysierra.gestureremote.command.playback.Pause;
 import org.whiskeysierra.gestureremote.command.playback.Play;
+import org.whiskeysierra.gestureremote.command.playback.Window;
 import org.whiskeysierra.gestureremote.command.playlist.Next;
 import org.whiskeysierra.gestureremote.command.playlist.Previous;
 import roboguice.activity.RoboActivity;
@@ -45,7 +47,7 @@ public class MainActivity extends RoboActivity implements OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         bus.post(event);
-        return false;
+        return true;
     }
 
     @Subscribe
@@ -66,6 +68,16 @@ public class MainActivity extends RoboActivity implements OnTouchListener {
     @Subscribe
     public void onPrevious(Previous _) {
         text.setText("Previous!");
+    }
+
+    @Subscribe
+    public void onFullscreen(Fullscreen _) {
+        text.setText("Fullscreen!");
+    }
+
+    @Subscribe
+    public void onWindow(Window _) {
+        text.setText("Window!");
     }
 
 }
