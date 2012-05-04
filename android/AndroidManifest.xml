@@ -4,9 +4,9 @@
           android:versionCode="1"
           android:versionName="1.0">
     <application android:label="@string/app_name" android:icon="@drawable/icon"
-                 android:name=".GestureRemoteApplication"
+                 android:name=".gestureremote.GestureRemoteApplication"
                  android:theme="@android:style/Theme.Black.NoTitleBar">
-        <activity android:name="MainActivity"
+        <activity android:name=".gestureremote.MainActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
