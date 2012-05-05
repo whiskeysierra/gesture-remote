@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 import org.nnsoft.guice.lifegycle.AfterInjectionModule;
 import org.whiskeysierra.gestureremote.command.CommandModule;
 import org.whiskeysierra.gestureremote.gesture.GestureModule;
+import org.whiskeysierra.gestureremote.remote.RemoteModule;
 
 final class GestureRemoteModule extends AbstractModule {
 
@@ -16,6 +17,7 @@ final class GestureRemoteModule extends AbstractModule {
         install(new AfterInjectionModule());
         install(new CommandModule());
         install(new GestureModule());
+        install(new RemoteModule());
     }
 
 }

@@ -1,0 +1,57 @@
+package org.whiskeysierra.gestureremote.remote;
+
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import org.nnsoft.guice.lifegycle.AfterInjection;
+import org.whiskeysierra.gestureremote.command.playback.Fullscreen;
+import org.whiskeysierra.gestureremote.command.playback.Pause;
+import org.whiskeysierra.gestureremote.command.playback.Play;
+import org.whiskeysierra.gestureremote.command.playback.Window;
+import org.whiskeysierra.gestureremote.command.playlist.Next;
+import org.whiskeysierra.gestureremote.command.playlist.Previous;
+
+final class RemoteControlAdapter {
+
+    @Inject
+    private EventBus bus;
+
+    @Inject
+    private Remote remote;
+
+    @AfterInjection
+    public void onPostConstruct() {
+        bus.register(this);
+    }
+
+    @Subscribe
+    public void onPlay(Play _) {
+        remote.play();
+    }
+
+    @Subscribe
+    public void onPause(Pause _) {
+        remote.pause();
+    }
+
+    @Subscribe
+    public void onNext(Next _) {
+        remote.next();
+    }
+
+    @Subscribe
+    public void onPrevious(Previous _) {
+        remote.previous();
+    }
+
+    @Subscribe
+    public void onFullscreen(Fullscreen _) {
+        remote.fullscreen();
+    }
+
+    @Subscribe
+    public void onWindow(Window _) {
+        remote.window();
+    }
+
+}
