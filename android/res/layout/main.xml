@@ -12,5 +12,10 @@
             android:gestureColor="#ffffff">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/text"/>
     </android.gesture.GestureOverlayView>
+    <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/servers"
+            android:onClick="showServerSettings" />
 </LinearLayout>
 

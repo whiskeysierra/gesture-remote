@@ -1,5 +1,6 @@
 package org.whiskeysierra.gestureremote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,7 @@ import org.whiskeysierra.gestureremote.command.playback.Play;
 import org.whiskeysierra.gestureremote.command.playback.Window;
 import org.whiskeysierra.gestureremote.command.playlist.Next;
 import org.whiskeysierra.gestureremote.command.playlist.Previous;
+import org.whiskeysierra.gestureremote.servermanagment.ServerActivity;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
@@ -78,6 +80,11 @@ public class MainActivity extends RoboActivity implements OnTouchListener {
     @Subscribe
     public void onWindow(Window _) {
         text.setText("Window!");
+    }
+
+    public void showServerSettings(View view){
+        Intent intent = new Intent(view.getContext(), ServerActivity.class);
+        startActivityForResult(intent,0);
     }
 
 }

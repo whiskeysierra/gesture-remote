@@ -13,6 +13,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".gestureremote.servermanagment.ServerActivity"></activity>
+        <activity android:name=".gestureremote.servermanagment.NewServerActivity"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest> 
