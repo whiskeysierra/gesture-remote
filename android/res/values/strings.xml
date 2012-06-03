@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gesture Remote</string>
-    <string name="servers">Servers</string>
+    <string name="servers">Server-Setting</string>
     <string name="save_server">Save Server</string>
+    <string name="new_server">Create new Server</string>
     <string name="host">Server-IP:</string>
     <string name="port">Port:</string>
     <string name="servername">Servername:</string>

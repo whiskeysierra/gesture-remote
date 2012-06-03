@@ -35,7 +35,17 @@ public class ServerActivity extends ListActivity {
         ArrayAdapter<Settings> adapter = new ArrayAdapter<Settings>(this,
                 android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
+        for (int i = 0; i < getListView().getChildCount(); i++) {
+            getListView().getChildAt(i).setOnClickListener(itemClick);
+        }
+
     }
+    private View.OnClickListener itemClick = new View.OnClickListener() {
+        public void onClick(View v) {
+           //
+        }
+    };
+
 
     public void newServer(View view){
         Intent intent = new Intent(view.getContext(), NewServerActivity.class);
