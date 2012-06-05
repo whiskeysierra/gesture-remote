@@ -4,8 +4,8 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import org.nnsoft.guice.lifegycle.AfterInjection;
-import org.whiskeysierra.gestureremote.gesture.LeftFling;
-import org.whiskeysierra.gestureremote.gesture.RightFling;
+import org.whiskeysierra.gestureremote.recognition.gestures.LeftFling;
+import org.whiskeysierra.gestureremote.recognition.gestures.RightFling;
 
 final class PlaylistAdapter {
 

@@ -29,7 +29,7 @@ public class NewServerActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newserver);
+        setContentView(R.layout.new_server);
         dao = new SettingsDAO(this);
         dao.open();
 

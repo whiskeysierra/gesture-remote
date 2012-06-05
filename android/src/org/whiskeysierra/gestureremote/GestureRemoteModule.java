@@ -5,7 +5,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import org.nnsoft.guice.lifegycle.AfterInjectionModule;
 import org.whiskeysierra.gestureremote.command.CommandModule;
-import org.whiskeysierra.gestureremote.gesture.GestureModule;
+import org.whiskeysierra.gestureremote.recognition.GestureModule;
 import org.whiskeysierra.gestureremote.remote.RemoteModule;
 
 final class GestureRemoteModule extends AbstractModule {

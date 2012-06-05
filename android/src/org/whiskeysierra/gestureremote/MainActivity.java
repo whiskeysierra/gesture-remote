@@ -15,6 +15,8 @@ import org.whiskeysierra.R.id;
 import org.whiskeysierra.gestureremote.command.playback.Fullscreen;
 import org.whiskeysierra.gestureremote.command.playback.Pause;
 import org.whiskeysierra.gestureremote.command.playback.Play;
+import org.whiskeysierra.gestureremote.command.playback.Seek;
+import org.whiskeysierra.gestureremote.command.playback.TurnVolume;
 import org.whiskeysierra.gestureremote.command.playback.Window;
 import org.whiskeysierra.gestureremote.command.playlist.Next;
 import org.whiskeysierra.gestureremote.command.playlist.Previous;
@@ -22,7 +24,7 @@ import org.whiskeysierra.gestureremote.servermanagment.ServerActivity;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
-public class MainActivity extends RoboActivity implements OnTouchListener {
+public class MainActivity extends RoboActivity implements OnTouchListener, Runnable {
 
     @Inject
     private EventBus bus;
@@ -44,6 +46,16 @@ public class MainActivity extends RoboActivity implements OnTouchListener {
         setContentView(R.layout.main);
 
         view.setOnTouchListener(this);
+        view.post(this);
+    }
+
+    @Override
+    public void run() {
+        bus.post(new ViewSize(view.getWidth(), view.getHeight()));
+    }
+
+    public void showServerSettings(View view){
+        startActivityForResult(new Intent(view.getContext(), ServerActivity.class), 0);
     }
 
     @Override
@@ -65,6 +77,7 @@ public class MainActivity extends RoboActivity implements OnTouchListener {
     @Subscribe
     public void onNext(Next _) {
         text.setText("Next!");
+        showServerSettings(view);
     }
 
     @Subscribe
@@ -82,9 +95,14 @@ public class MainActivity extends RoboActivity implements OnTouchListener {
         text.setText("Window!");
     }
 
-    public void showServerSettings(View view){
-        Intent intent = new Intent(view.getContext(), ServerActivity.class);
-        startActivityForResult(intent,0);
+    @Subscribe
+    public void onSeek(Seek seek) {
+        text.setText("Seeking " + seek.getPercentage());
+    }
+
+    @Subscribe
+    public void onTurnVolume(TurnVolume volume) {
+        text.setText("Setting volume " + volume.getPercentage());
     }
 
 }
