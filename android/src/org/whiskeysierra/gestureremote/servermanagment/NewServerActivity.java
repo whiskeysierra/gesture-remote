@@ -1,75 +1,98 @@
 package org.whiskeysierra.gestureremote.servermanagment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+import com.google.common.base.Strings;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 import org.whiskeysierra.R;
+import org.whiskeysierra.R.drawable;
+import org.whiskeysierra.R.id;
+import org.whiskeysierra.R.string;
+import org.whiskeysierra.gestureremote.FinishAction;
 import org.whiskeysierra.gestureremote.servermanagment.data.SettingsDAO;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
 
-import java.util.List;
+import java.util.regex.Pattern;
 
-/**
- * Created with IntelliJ IDEA.
- * User: afeldmann
- * Date: 11.05.12
- * Time: 21:11
- * To change this template use File | Settings | File Templates.
- */
-public class NewServerActivity extends Activity {
+public class NewServerActivity extends RoboActivity implements OnClickListener {
+
+    @InjectView(id.newServerLayout)
+    private LinearLayout layout;
+
+    @InjectView(id.actionbar)
+    private ActionBar bar;
+
+    @InjectView(id.save)
+    private Button save;
+
     private SettingsDAO dao;
-    private EditText text;
-
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_server);
+
+        layout.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                final InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                manager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+            }
+
+        });
+
+        bar.setHomeAction(new FinishAction(this, drawable.ic_menu_back));
+        bar.setTitle(string.new_server);
+
+        save.setOnClickListener(this);
+
         dao = new SettingsDAO(this);
         dao.open();
-
-    }
-    public void resetForm(View view){
-        hideKeyboard(view);
-        text = (EditText)findViewById(R.id.svr_name);
-        text.setText("");
-        text = (EditText)findViewById(R.id.svr_port);
-        text.setText("");
-        text = (EditText)findViewById(R.id.svr_host);
-        text.setText("");
     }
 
-    public void saveNewServer(View view){
-        String message = "";
-        text = (EditText)findViewById(R.id.svr_host);
-        String host = text.getText().toString();
-        text = (EditText)findViewById(R.id.svr_port);
-        String port = text.getText().toString();
-        text = (EditText)findViewById(R.id.svr_name);
-        String name = text.getText().toString();
-        if(!host.matches("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")){
-            message = "Please input a valid address";
-        }else if(port.length() == 0 || Integer.valueOf(port) > 65536){
-            message = "Please input a valid port";
-        }else if(name.length() == 0){
-            message = "Please input a valid name";
-        }else{
-            dao.createSetting(host,Integer.parseInt(port),name);
+    private EditText findEditTextById(int id) {
+        return (EditText) findViewById(id);
+    }
+
+    private void resetForm(View view) {
+        findEditTextById(R.id.svr_name).setText("");
+        findEditTextById(R.id.svr_host).setText("");
+        findEditTextById(R.id.svr_port).setText("");
+    }
+
+    private void toast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        final String name = findEditTextById(R.id.svr_name).getText().toString();
+        final String host = findEditTextById(R.id.svr_host).getText().toString();
+        final String port = findEditTextById(R.id.svr_port).getText().toString();
+
+        if (Strings.isNullOrEmpty(host)) {
+            toast("Please input a valid address");
+        } else if (Strings.isNullOrEmpty(port) || Integer.parseInt(port) > 65536) {
+            toast("Please input a valid port");
+        } else if (name.length() == 0) {
+            toast("Please input a valid name");
+        } else {
+            dao.createSetting(host, Integer.parseInt(port), name);
             resetForm(view);
-            message = "Server saved";
+
+            startActivity(new Intent(this, ServerActivity.class));
         }
-        Toast.makeText(this, message,Toast.LENGTH_SHORT).show();
-
-    }
-    public void hideKeyboard(View view){
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
-
     }
 
     @Override
@@ -83,6 +106,5 @@ public class NewServerActivity extends Activity {
         dao.close();
         super.onPause();
     }
-
 
 }

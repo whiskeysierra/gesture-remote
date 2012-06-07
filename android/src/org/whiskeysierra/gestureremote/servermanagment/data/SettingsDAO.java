@@ -21,25 +21,25 @@ public class SettingsDAO {
 
     private SQLiteDatabase db;
     private SQLiteHelper helper;
-    private String[] allSettings = {SQLiteHelper.COLUMN_ID, SQLiteHelper.COLUMN_IP,SQLiteHelper.COLUMN_PORT,SQLiteHelper.COLUMN_SELECTED, SQLiteHelper.COLUMN_NAME};
+    private String[] allSettings = {SQLiteHelper.COLUMN_ID, SQLiteHelper.COLUMN_IP, SQLiteHelper.COLUMN_PORT, SQLiteHelper.COLUMN_SELECTED, SQLiteHelper.COLUMN_NAME};
 
-    public SettingsDAO(Context context){
+    public SettingsDAO(Context context) {
         helper = new SQLiteHelper(context);
     }
 
-    public void open() throws SQLException{
+    public void open() throws SQLException {
         db = helper.getWritableDatabase();
     }
 
-    public void close(){
+    public void close() {
         db.close();
     }
 
-    public Settings createSetting(String host, int port, String name){
+    public Settings createSetting(String host, int port, String name) {
         ContentValues values = new ContentValues();
         values.put(SQLiteHelper.COLUMN_IP, host);
         values.put(SQLiteHelper.COLUMN_PORT, port);
-        values.put(SQLiteHelper.COLUMN_SELECTED, true);
+        values.put(SQLiteHelper.COLUMN_SELECTED, false);
         values.put(SQLiteHelper.COLUMN_NAME, name);
 
         long insertID = db.insert(SQLiteHelper.TABLE_SETTINGS, null, values);
@@ -51,18 +51,29 @@ public class SettingsDAO {
         return newSettings;
     }
 
-    public void deleteSettings(Settings settings){
+    public void deleteSettings(Settings settings) {
         long id = settings.getId();
         System.out.println("Settings id deleted:" + id);
         db.delete(SQLiteHelper.TABLE_SETTINGS, SQLiteHelper.COLUMN_ID + " = " + id, null);
     }
 
-    public List<Settings> getAllSettings(){
+    public Cursor scroll() {
+        final String sql =
+            "SELECT " +
+                SQLiteHelper.COLUMN_ID + ", " +
+                SQLiteHelper.COLUMN_NAME + ", " +
+                "(" + SQLiteHelper.COLUMN_IP +  " || ':' || " + SQLiteHelper.COLUMN_PORT + ") AS address " +
+            "FROM " +
+                "settings";
+        return db.rawQuery(sql, null);
+    }
+
+    public List<Settings> getAllSettings() {
         List<Settings> settings = new ArrayList<Settings>();
 
-        Cursor cursor = db.query(SQLiteHelper.TABLE_SETTINGS, allSettings, null, null,null, null, null);
+        Cursor cursor = db.query(SQLiteHelper.TABLE_SETTINGS, allSettings, null, null, null, null, null);
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             Settings setting = cursorToSettings(cursor);
             settings.add(setting);
             cursor.moveToNext();
@@ -71,7 +82,7 @@ public class SettingsDAO {
         return settings;
     }
 
-    private Settings cursorToSettings(Cursor cursor){
+    private Settings cursorToSettings(Cursor cursor) {
         Settings settings = new Settings();
         settings.setId(cursor.getLong(0));
         settings.setHost(cursor.getString(1));
@@ -80,11 +91,6 @@ public class SettingsDAO {
         settings.setName(cursor.getString(4));
         return settings;
     }
-
-
-
-
-
 
 
 }

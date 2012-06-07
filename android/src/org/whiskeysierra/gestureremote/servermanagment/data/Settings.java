@@ -1,12 +1,5 @@
 package org.whiskeysierra.gestureremote.servermanagment.data;
 
-/**
- * Created with IntelliJ IDEA.
- * User: afeldmann
- * Date: 11.05.12
- * Time: 17:27
- * To change this template use File | Settings | File Templates.
- */
 public class Settings {
 
     private long id;
@@ -57,6 +50,7 @@ public class Settings {
 
     @Override
     public String toString() {
-        return name+" "+host+":"+port;
+        return name + "\n" + host + ":" + port;
     }
+
 }

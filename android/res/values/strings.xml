@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gesture Remote</string>
-    <string name="servers">Server-Setting</string>
-    <string name="save_server">Save Server</string>
-    <string name="new_server">Create new Server</string>
-    <string name="host">Server-IP:</string>
-    <string name="port">Port:</string>
-    <string name="servername">Servername:</string>
-    <string name="reset">Reset</string>
+    <string name="servers">Servers</string>
+    <string name="save_server">Save</string>
+    <string name="servername">Server name</string>
+    <string name="new_server">Create new server</string>
+    <string name="host">IP address or hostname</string>
+    <string name="port">Port</string>
+    <string name="actionbar_activity_not_found">Activity not found</string>
 </resources>
