@@ -1,7 +1,5 @@
 package org.whiskeysierra.gestureremote;
 
-import android.R.drawable;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,8 +10,6 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.Action;
-import com.markupartist.android.widget.ActionBar.IntentAction;
 import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.R;
 import org.whiskeysierra.R.id;
@@ -25,7 +21,7 @@ import org.whiskeysierra.gestureremote.command.playback.TurnVolume;
 import org.whiskeysierra.gestureremote.command.playback.Window;
 import org.whiskeysierra.gestureremote.command.playlist.Next;
 import org.whiskeysierra.gestureremote.command.playlist.Previous;
-import org.whiskeysierra.gestureremote.servermanagment.ServerActivity;
+import org.whiskeysierra.gestureremote.servermanagment.ServerListActivity;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
@@ -59,7 +55,7 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
         view.setOnTouchListener(this);
         view.post(this);
 
-        bar.addAction(new ChildActivityIntentAction(this, ServerActivity.class, R.drawable.ic_menu_preferences));
+        bar.addAction(new ChildActivityIntentAction(this, ServerListActivity.class, R.drawable.ic_menu_preferences));
 
         text.setText("Not connected");
     }
