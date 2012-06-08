@@ -69,16 +69,6 @@ final class PlaybackAdapter {
     }
 
     @Subscribe
-    public void onPinch(Pinch _) {
-        bus.post(Window.INSTANCE);
-    }
-
-    @Subscribe
-    public void onZoom(Zoom _) {
-        bus.post(Fullscreen.INSTANCE);
-    }
-
-    @Subscribe
     public void onHorizontalDrag(HorizontalDrag drag) {
         bus.post(new Seek(drag.getDistance() / size.getWidth() * 100));
     }
@@ -86,6 +76,16 @@ final class PlaybackAdapter {
     @Subscribe
     public void onVerticalDrag(VerticalDrag drag) {
         bus.post(new TurnVolume(drag.getDistance() / size.getHeight() * 100));
+    }
+
+    @Subscribe
+    public void onPinch(Pinch _) {
+        bus.post(Window.INSTANCE);
+    }
+
+    @Subscribe
+    public void onZoom(Zoom _) {
+        bus.post(Fullscreen.INSTANCE);
     }
 
 }

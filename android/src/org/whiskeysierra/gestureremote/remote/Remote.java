@@ -10,6 +10,10 @@ public interface Remote {
 
     void next();
 
+    void seek(float percentage);
+
+    void volume(float percentage);
+
     void fullscreen();
 
     void window();

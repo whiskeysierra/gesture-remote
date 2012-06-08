@@ -1,39 +1,39 @@
 package org.whiskeysierra.gestureremote.remote.vlc;
 
-import android.net.http.AndroidHttpClient;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
-import org.apache.http.params.BasicHttpParams;
 import org.whiskeysierra.gestureremote.remote.Remote;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 final class VlcHttpRemote implements Remote {
 
-    private HttpClient client = AndroidHttpClient.newInstance("Android Gesture Remote");
-    private String server;
-
     private void send(String command) {
-        if (server == null) return;
+        try {
+            final URL url = new URL("http", "192.168.100.22", 8080, "/requests/status.xml?command=" + command);
+            final URLConnection connection = url.openConnection();
+            connection.getContent();
+        } catch (MalformedURLException e) {
+            throw new IllegalStateException(e);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private void send(String command, String value) {
+
+        final String query = "command=" + command + "&val=" + URLEncoder.encode(value);
 
         try {
-            // TODO cache
-            final HttpHost host = new HttpHost("192.168.100.22", 8080, "http");
-            final HttpRequest request = new HttpHead("/requests/status-xml");
-
-            request.getParams().setParameter("command", command);
-
-            client.execute(host, request);
+            final URL url = new URL("http", "192.168.100.22", 8080, "/requests/status.xml?" + query);
+            final URLConnection connection = url.openConnection();
+            connection.getContent();
         } catch (MalformedURLException e) {
-            // TODO don't swallow
+            throw new IllegalStateException(e);
         } catch (IOException e) {
-            // TODO don't swallow
+            throw new IllegalStateException(e);
         }
     }
 
@@ -55,6 +55,17 @@ final class VlcHttpRemote implements Remote {
     @Override
     public void next() {
         send("pl_next");
+    }
+
+    @Override
+    public void seek(float percentage) {
+        send("seek", String.format("%.2f", percentage));
+    }
+
+    @Override
+    public void volume(float percentage) {
+        final String format = String.format("%.2f", percentage);
+        send("volume", percentage > 0 ? "+" + format : format);
     }
 
     @Override

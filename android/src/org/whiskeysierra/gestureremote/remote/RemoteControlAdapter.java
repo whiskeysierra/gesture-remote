@@ -7,6 +7,8 @@ import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.gestureremote.command.playback.Fullscreen;
 import org.whiskeysierra.gestureremote.command.playback.Pause;
 import org.whiskeysierra.gestureremote.command.playback.Play;
+import org.whiskeysierra.gestureremote.command.playback.Seek;
+import org.whiskeysierra.gestureremote.command.playback.TurnVolume;
 import org.whiskeysierra.gestureremote.command.playback.Window;
 import org.whiskeysierra.gestureremote.command.playlist.Next;
 import org.whiskeysierra.gestureremote.command.playlist.Previous;
@@ -42,6 +44,16 @@ final class RemoteControlAdapter {
     @Subscribe
     public void onPrevious(Previous _) {
         remote.previous();
+    }
+
+    @Subscribe
+    public void onSeek(Seek seek) {
+        remote.seek(seek.getPercentage());
+    }
+
+    @Subscribe
+    public void onTurnVolume(TurnVolume volume) {
+        remote.volume(volume.getPercentage());
     }
 
     @Subscribe
