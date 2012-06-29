@@ -1,6 +1,13 @@
 package org.whiskeysierra.gestureremote.remote.vlc;
 
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.gestureremote.remote.Remote;
+import org.whiskeysierra.gestureremote.server.Connect;
+import org.whiskeysierra.gestureremote.server.Connected;
+import org.whiskeysierra.gestureremote.server.model.Server;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -10,7 +17,24 @@ import java.net.URLEncoder;
 
 final class VlcHttpRemote implements Remote {
 
+    private Server server;
+
+    @Inject
+    private EventBus bus;
+
+    @AfterInjection
+    public void onPostConstruct() {
+        bus.register(this);
+    }
+
+    @Subscribe
+    public void onConnect(Connect connect) {
+        server = connect.getServer();
+        bus.post(new Connected(server));
+    }
+
     private void send(String command) {
+        // TODO use server
         try {
             final URL url = new URL("http", "192.168.100.22", 8080, "/requests/status.xml?command=" + command);
             final URLConnection connection = url.openConnection();

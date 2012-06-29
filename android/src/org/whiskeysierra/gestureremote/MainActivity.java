@@ -21,7 +21,7 @@ import org.whiskeysierra.gestureremote.command.playback.TurnVolume;
 import org.whiskeysierra.gestureremote.command.playback.Window;
 import org.whiskeysierra.gestureremote.command.playlist.Next;
 import org.whiskeysierra.gestureremote.command.playlist.Previous;
-import org.whiskeysierra.gestureremote.servermanagment.ServerListActivity;
+import org.whiskeysierra.gestureremote.server.ServerListActivity;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 

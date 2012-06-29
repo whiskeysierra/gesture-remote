@@ -7,6 +7,7 @@ import org.nnsoft.guice.lifegycle.AfterInjectionModule;
 import org.whiskeysierra.gestureremote.command.CommandModule;
 import org.whiskeysierra.gestureremote.recognition.GestureModule;
 import org.whiskeysierra.gestureremote.remote.RemoteModule;
+import org.whiskeysierra.gestureremote.server.ServerModule;
 
 final class GestureRemoteModule extends AbstractModule {
 
@@ -18,6 +19,7 @@ final class GestureRemoteModule extends AbstractModule {
         install(new CommandModule());
         install(new GestureModule());
         install(new RemoteModule());
+        install(new ServerModule());
     }
 
 }
