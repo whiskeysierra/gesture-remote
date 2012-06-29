@@ -69,7 +69,7 @@ public class ServerListActivity extends RoboListActivity implements OnLongClickL
     @Override
     public void onCreateContextMenu(ContextMenu menu, final View view, ContextMenuInfo menuInfo) {
         if (view.getId() == android.R.id.list) {
-            menu.setHeaderTitle("Context Header Test");
+            menu.setHeaderTitle("Choose");
 
             final int index = AdapterContextMenuInfo.class.cast(menuInfo).position;
 

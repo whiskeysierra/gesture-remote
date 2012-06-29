@@ -13,11 +13,10 @@ import com.google.inject.Inject;
 import com.markupartist.android.widget.ActionBar;
 import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.R;
-import org.whiskeysierra.R.drawable;
 import org.whiskeysierra.R.id;
 import org.whiskeysierra.gestureremote.command.playback.Fullscreen;
-import org.whiskeysierra.gestureremote.command.playback.Pause;
-import org.whiskeysierra.gestureremote.command.playback.Play;
+import org.whiskeysierra.gestureremote.command.playback.Paused;
+import org.whiskeysierra.gestureremote.command.playback.Playing;
 import org.whiskeysierra.gestureremote.command.playback.Seek;
 import org.whiskeysierra.gestureremote.command.playback.TurnVolume;
 import org.whiskeysierra.gestureremote.command.playback.Window;
@@ -124,15 +123,15 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
     }
 
     @Subscribe
-    public void onPlay(Play _) {
+    public void onPlaying(Playing _) {
         setImage(R.drawable.play);
         setStatus("Playing");
     }
 
     @Subscribe
-    public void onPause(Pause _) {
+    public void onPaused(Paused _) {
         setImage(R.drawable.pause);
-        setStatus("Paused.");
+        setStatus("Paused");
     }
 
     @Subscribe
@@ -159,19 +158,24 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
 
     @Subscribe
     public void onSeek(Seek seek) {
-        if (seek.getPercentage() > 0) {
+        if (seek.getPercentage() > 0f) {
             setImage(R.drawable.fast_forward);
         } else {
             setImage(R.drawable.rewind);
         }
 
-        setStatus("Seeking " + seek.getPercentage());
+        setStatus("Seeking");
     }
 
     @Subscribe
     public void onTurnVolume(TurnVolume volume) {
         image.setImageDrawable(null);
-        setStatus("Setting volume " + volume.getPercentage());
+
+        if (volume.getPercentage() > 0f) {
+            setStatus("Turning volume up");
+        } else {
+            setStatus("Turning volume down");
+        }
     }
 
 }

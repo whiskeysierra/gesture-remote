@@ -24,6 +24,8 @@ final class SimpleGestureRecognizer extends SimpleOnGestureListener implements R
 
     private final GestureDetector detector = new GestureDetector(this);
 
+    private MotionEvent scroll;
+
     @Inject
     private EventBus bus;
 
@@ -44,7 +46,13 @@ final class SimpleGestureRecognizer extends SimpleOnGestureListener implements R
 
     @Override
     public boolean recognize(MotionEvent event) {
-        return detector.onTouchEvent(event);
+        if (detector.onTouchEvent(event)) {
+            return true;
+        } else if (event.getAction() == MotionEvent.ACTION_UP && scroll != null) {
+            bus.post(new HorizontalDrag(scroll.getX()));
+            scroll = null;
+        }
+        return false;
     }
 
     @Override
@@ -75,15 +83,15 @@ final class SimpleGestureRecognizer extends SimpleOnGestureListener implements R
     }
 
     @Override
-    public boolean onScroll(MotionEvent a, MotionEvent b, float distanceX, float distanceY) {
+    public boolean onScroll(MotionEvent first, MotionEvent second, float distanceX, float distanceY) {
         final float minY = 0.8f * size.getHeight();
         final float minX = 0.8f * size.getWidth();
 
-        if (a.getY() > minY && b.getY() > minY) {
-            bus.post(new HorizontalDrag(-distanceX));
+        if (first.getY() > minY && second.getY() > minY) {
+            this.scroll = second;
             return true;
-        } else if (a.getX() > minX && b.getX() > minX) {
-            bus.post(new VerticalDrag(distanceY));
+        } else if (first.getX() > minX && second.getX() > minX) {
+            bus.post(new VerticalDrag(+distanceY));
             return true;
         }
 

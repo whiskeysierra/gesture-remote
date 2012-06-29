@@ -1,33 +1,7 @@
 package org.whiskeysierra.gestureremote.command.playback;
 
-enum State {
+public enum State {
 
-    INITIAL {
+    INITIAL, PLAYING, PAUSED, STOPPED;
 
-        @Override
-        public State next() {
-            return PLAYING;
-        }
-
-    },
-
-    PLAYING {
-
-        @Override
-        public State next() {
-            return PAUSED;
-        }
-
-    },
-
-    PAUSED {
-
-        @Override
-        public State next() {
-            return PLAYING;
-        }
-
-    };
-
-    public abstract State next();
 }

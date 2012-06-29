@@ -2,14 +2,14 @@ package org.whiskeysierra.gestureremote.recognition.gestures;
 
 public final class HorizontalDrag implements TouchGesture {
 
-    private final float distance;
+    private final float x;
 
-    public HorizontalDrag(float distance) {
-        this.distance = distance;
+    public HorizontalDrag(float x) {
+        this.x = x;
     }
 
-    public float getDistance() {
-        return distance;
+    public float getX() {
+        return x;
     }
 
 }
