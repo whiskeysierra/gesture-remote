@@ -4,6 +4,9 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import org.nnsoft.guice.lifegycle.AfterInjection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
 import org.whiskeysierra.gestureremote.remote.Remote;
 import org.whiskeysierra.gestureremote.server.Connect;
 import org.whiskeysierra.gestureremote.server.Connected;
@@ -18,6 +21,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 final class VlcHttpRemote implements Remote {
+
+    private static final Logger LOG = LoggerFactory.getLogger(VlcHttpRemote.class);
 
     private Server server;
 
@@ -43,15 +48,26 @@ final class VlcHttpRemote implements Remote {
             bus.post(new Disconnect(server));
         }
         server = connect.getServer();
+
+        // TODO receive status and only post connected event, if successful
+
+
         bus.post(new Connected(server));
     }
 
     private void send(String command) {
-        // TODO use server
+        if (server == null) {
+            LOG.info("Not sending {}, because we are not connected to a server", command);
+            return;
+        }
+
         try {
-            final URL url = new URL("http", "192.168.100.22", 8080, "/requests/status.xml?command=" + command);
+            final String uri = "/requests/status.xml?command=" + command;
+            final URL url = new URL("http", server.getHost(), server.getPort(), uri);
             final URLConnection connection = url.openConnection();
-            connection.getContent();
+            final Object content = connection.getContent();
+
+            // TODO parse xml content and save as status info
         } catch (MalformedURLException e) {
             throw new IllegalStateException(e);
         } catch (IOException e) {

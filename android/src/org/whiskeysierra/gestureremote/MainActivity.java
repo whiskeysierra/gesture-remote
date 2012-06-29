@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.google.common.base.Objects;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.markupartist.android.widget.ActionBar;
 import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.R;
+import org.whiskeysierra.R.drawable;
 import org.whiskeysierra.R.id;
 import org.whiskeysierra.gestureremote.command.playback.Fullscreen;
 import org.whiskeysierra.gestureremote.command.playback.Pause;
@@ -44,9 +46,30 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
     @InjectView(id.text)
     private TextView text;
 
+    private String title;
+
     @AfterInjection
     public void onPostConstruct() {
         bus.register(this);
+    }
+
+    private void setTitle(String title) {
+        this.title = title;
+        bar.setTitle(title);
+    }
+
+    private void setStatus(String status) {
+        text.setText(status);
+    }
+
+    private void setImage(int id) {
+        if (id == 0) {
+            image.setImageDrawable(null);
+            image.setTag(null);
+        } else {
+            image.setImageResource(id);
+            image.setTag(id);
+        }
     }
 
     @Override
@@ -59,7 +82,24 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
 
         bar.addAction(new ChildActivityIntentAction(this, ServerListActivity.class, R.drawable.ic_menu_preferences));
 
-        bar.setTitle("Not connected");
+        setTitle("Not connected");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        bundle.putString("title", title);
+        bundle.putInt("image", (Integer) Objects.firstNonNull(image.getTag(), 0));
+        bundle.putString("status", text.getText().toString());
+        super.onSaveInstanceState(bundle);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle bundle) {
+        super.onRestoreInstanceState(bundle);
+        setTitle(bundle.getString("title"));
+        setImage(bundle.getInt("image"));
+        setStatus(bundle.getString("status"));
+
     }
 
     @Override
@@ -75,63 +115,63 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
 
     @Subscribe
     public void onConnected(Connected connected) {
-        bar.setTitle("Connected to " + connected.getServer().getName());
+        setTitle("Connected to " + connected.getServer().getName());
     }
 
     @Subscribe
     public void onDisconnect(Disconnect _) {
-        bar.setTitle("Disconnected");
+        setTitle("Disconnected");
     }
 
     @Subscribe
     public void onPlay(Play _) {
-        image.setImageResource(R.drawable.play);
-        text.setText("Playing");
+        setImage(R.drawable.play);
+        setStatus("Playing");
     }
 
     @Subscribe
     public void onPause(Pause _) {
-        image.setImageResource(R.drawable.pause);
-        text.setText("Paused.");
+        setImage(R.drawable.pause);
+        setStatus("Paused.");
     }
 
     @Subscribe
     public void onNext(Next _) {
-        image.setImageResource(R.drawable.forward_to_end);
-        text.setText("Next!");
+        setImage(R.drawable.forward_to_end);
+        setStatus("Next!");
     }
 
     @Subscribe
     public void onPrevious(Previous _) {
-        image.setImageResource(R.drawable.rewind_to_start);
-        text.setText("Previous!");
+        setImage(R.drawable.rewind_to_start);
+        setStatus("Previous!");
     }
 
     @Subscribe
     public void onFullscreen(Fullscreen _) {
-        text.setText("Fullscreen!");
+        setStatus("Fullscreen!");
     }
 
     @Subscribe
     public void onWindow(Window _) {
-        text.setText("Window!");
+        setStatus("Window!");
     }
 
     @Subscribe
     public void onSeek(Seek seek) {
         if (seek.getPercentage() > 0) {
-            image.setImageResource(R.drawable.fast_forward);
+            setImage(R.drawable.fast_forward);
         } else {
-            image.setImageResource(R.drawable.rewind);
+            setImage(R.drawable.rewind);
         }
 
-        text.setText("Seeking " + seek.getPercentage());
+        setStatus("Seeking " + seek.getPercentage());
     }
 
     @Subscribe
     public void onTurnVolume(TurnVolume volume) {
         image.setImageDrawable(null);
-        text.setText("Setting volume " + volume.getPercentage());
+        setStatus("Setting volume " + volume.getPercentage());
     }
 
 }
