@@ -35,6 +35,8 @@ public class ServerActivity extends RoboActivity implements OnClickListener {
     @Inject
     private ServerManager manager;
 
+    private Server server;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +48,22 @@ public class ServerActivity extends RoboActivity implements OnClickListener {
         bar.setTitle(string.new_server);
 
         save.setOnClickListener(this);
+
+        final Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+            final int index = bundle.getInt("index");
+
+            server = manager.findAt(index);
+
+            findEditTextById(R.id.svr_name).setText(server.getName());
+            findEditTextById(R.id.svr_host).setText(server.getHost());
+            findEditTextById(R.id.svr_port).setText(Integer.toString(server.getPort()));
+        }
     }
 
     private EditText findEditTextById(int id) {
         return (EditText) findViewById(id);
-    }
-
-    private void resetForm() {
-        findEditTextById(R.id.svr_name).setText("");
-        findEditTextById(R.id.svr_host).setText("");
-        findEditTextById(R.id.svr_port).setText("");
     }
 
     private void toast(String message) {
@@ -75,16 +83,21 @@ public class ServerActivity extends RoboActivity implements OnClickListener {
         } else if (name.length() == 0) {
             toast("Please input a valid name");
         } else {
-            final Server server = new Server();
+            if (server == null) {
+                server = new Server();
+            }
 
             server.setHost(host);
             server.setPort(Integer.parseInt(port));
             server.setName(name);
 
-            manager.create(server);
-            resetForm();
+            if (server.getId() == 0) {
+                manager.create(server);
+            } else {
+                manager.update(server);
+            }
 
-            startActivity(new Intent(this, ServerListActivity.class));
+            finish();
         }
     }
 

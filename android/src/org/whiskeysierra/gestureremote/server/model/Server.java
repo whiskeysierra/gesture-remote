@@ -1,5 +1,7 @@
 package org.whiskeysierra.gestureremote.server.model;
 
+import com.google.common.primitives.Longs;
+
 public class Server {
 
     private long id;
@@ -46,6 +48,23 @@ public class Server {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        } else if (that instanceof Server) {
+            final Server other = (Server) that;
+            return getId() == other.getId();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override

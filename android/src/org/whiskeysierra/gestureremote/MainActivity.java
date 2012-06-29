@@ -21,6 +21,8 @@ import org.whiskeysierra.gestureremote.command.playback.TurnVolume;
 import org.whiskeysierra.gestureremote.command.playback.Window;
 import org.whiskeysierra.gestureremote.command.playlist.Next;
 import org.whiskeysierra.gestureremote.command.playlist.Previous;
+import org.whiskeysierra.gestureremote.server.Connected;
+import org.whiskeysierra.gestureremote.server.Disconnect;
 import org.whiskeysierra.gestureremote.server.ServerListActivity;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
@@ -57,7 +59,7 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
 
         bar.addAction(new ChildActivityIntentAction(this, ServerListActivity.class, R.drawable.ic_menu_preferences));
 
-        text.setText("Not connected");
+        bar.setTitle("Not connected");
     }
 
     @Override
@@ -69,6 +71,16 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
     public boolean onTouch(View view, MotionEvent event) {
         bus.post(event);
         return true;
+    }
+
+    @Subscribe
+    public void onConnected(Connected connected) {
+        bar.setTitle("Connected to " + connected.getServer().getName());
+    }
+
+    @Subscribe
+    public void onDisconnect(Disconnect _) {
+        bar.setTitle("Disconnected");
     }
 
     @Subscribe

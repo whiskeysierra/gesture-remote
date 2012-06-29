@@ -3,21 +3,17 @@ package org.whiskeysierra.gestureremote.server;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.IntentAction;
@@ -71,17 +67,18 @@ public class ServerListActivity extends RoboListActivity implements OnLongClickL
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        if (v.getId() == android.R.id.list) {
+    public void onCreateContextMenu(ContextMenu menu, final View view, ContextMenuInfo menuInfo) {
+        if (view.getId() == android.R.id.list) {
             menu.setHeaderTitle("Context Header Test");
+
+            final int index = AdapterContextMenuInfo.class.cast(menuInfo).position;
 
             menu.add("Connect").setOnMenuItemClickListener(new OnMenuItemClickListener() {
 
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
-                    final int index = AdapterContextMenuInfo.class.cast(menuItem.getMenuInfo()).position;
-                    Log.d(getClass().getName(), "Connecting to index " + index);
                     bus.post(new Connect(manager.findAt(index)));
+                    finish();
                     return true;
                 }
 
@@ -91,9 +88,13 @@ public class ServerListActivity extends RoboListActivity implements OnLongClickL
 
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
-                    final int index = AdapterContextMenuInfo.class.cast(menuItem.getMenuInfo()).position;
-                    // TODO pass selected index to server activity
-                    startActivityForResult(new Intent(ServerListActivity.this, ServerActivity.class), 0);
+                    final Intent intent = new Intent(ServerListActivity.this, ServerActivity.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("index", index);
+                    intent.putExtras(bundle);
+
+                    startActivityForResult(intent, 0);
                     return true;
                 }
 
@@ -103,27 +104,16 @@ public class ServerListActivity extends RoboListActivity implements OnLongClickL
 
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
-                    final int index = AdapterContextMenuInfo.class.cast(menuItem.getMenuInfo()).position;
-                    manager.delete(manager.findAt(index));
+                    final Server server = manager.findAt(index);
+                    bus.post(new Delete(server));
+                    manager.delete(server);
+                    updateList();
                     return true;
                 }
 
             });
         }
     }
-
-    /*
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        int index = info.position;
-
-        Toast.makeText(this, "Selected " + item.getTitle() + " (" + item.getItemId() + ") on " + index,
-            Toast.LENGTH_LONG).show();
-
-        return false;
-    }
-    */
 
     @Override
     public boolean onLongClick(View view) {
@@ -140,11 +130,6 @@ public class ServerListActivity extends RoboListActivity implements OnLongClickL
             new int[]{android.R.id.text1, android.R.id.text2});
 
         setListAdapter(adapter);
-    }
-
-    @Subscribe
-    public void onConnected(Connected connected) {
-        bar.setTitle("Connected to " + connected.getServer().getName());
     }
 
     @Override

@@ -7,6 +7,8 @@ import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.gestureremote.remote.Remote;
 import org.whiskeysierra.gestureremote.server.Connect;
 import org.whiskeysierra.gestureremote.server.Connected;
+import org.whiskeysierra.gestureremote.server.Delete;
+import org.whiskeysierra.gestureremote.server.Disconnect;
 import org.whiskeysierra.gestureremote.server.model.Server;
 
 import java.io.IOException;
@@ -28,7 +30,18 @@ final class VlcHttpRemote implements Remote {
     }
 
     @Subscribe
+    public void onDelete(Delete delete) {
+        if (delete.getServer().equals(server)) {
+            bus.post(new Disconnect(server));
+            server = null;
+        }
+    }
+
+    @Subscribe
     public void onConnect(Connect connect) {
+        if (server != null) {
+            bus.post(new Disconnect(server));
+        }
         server = connect.getServer();
         bus.post(new Connected(server));
     }
