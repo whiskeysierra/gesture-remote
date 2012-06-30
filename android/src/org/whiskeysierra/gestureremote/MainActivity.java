@@ -13,10 +13,11 @@ import com.google.inject.Inject;
 import com.markupartist.android.widget.ActionBar;
 import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.R;
+import org.whiskeysierra.R.drawable;
 import org.whiskeysierra.R.id;
 import org.whiskeysierra.gestureremote.command.playback.Fullscreen;
-import org.whiskeysierra.gestureremote.command.playback.Paused;
-import org.whiskeysierra.gestureremote.command.playback.Playing;
+import org.whiskeysierra.gestureremote.command.playback.Pause;
+import org.whiskeysierra.gestureremote.command.playback.Play;
 import org.whiskeysierra.gestureremote.command.playback.Seek;
 import org.whiskeysierra.gestureremote.command.playback.TurnVolume;
 import org.whiskeysierra.gestureremote.command.playback.Window;
@@ -59,6 +60,10 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
 
     private void setStatus(String status) {
         text.setText(status);
+    }
+
+    private void setStatus(String pattern, Object... args) {
+        setStatus(String.format(pattern, args));
     }
 
     private void setImage(int id) {
@@ -123,13 +128,13 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
     }
 
     @Subscribe
-    public void onPlaying(Playing _) {
+    public void onPlay(Play _) {
         setImage(R.drawable.play);
         setStatus("Playing");
     }
 
     @Subscribe
-    public void onPaused(Paused _) {
+    public void onPause(Pause _) {
         setImage(R.drawable.pause);
         setStatus("Paused");
     }
@@ -169,12 +174,14 @@ public class MainActivity extends RoboActivity implements OnTouchListener, Runna
 
     @Subscribe
     public void onTurnVolume(TurnVolume volume) {
-        image.setImageDrawable(null);
+        final float percentage = volume.getPercentage();
 
-        if (volume.getPercentage() > 0f) {
-            setStatus("Turning volume up");
+        if (percentage > 0f) {
+            setImage(drawable.up);
+            setStatus("Turning volume up by %+.0f%%", percentage);
         } else {
-            setStatus("Turning volume down");
+            setImage(drawable.down);
+            setStatus("Turning volume down by %+.0f%%", percentage);
         }
     }
 

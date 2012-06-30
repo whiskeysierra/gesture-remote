@@ -7,7 +7,7 @@ public final class RemoteModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(RemoteControlAdapter.class).asEagerSingleton();
+        bind(RemoteAdapter.class).asEagerSingleton();
 
         install(new VlcModule());
     }

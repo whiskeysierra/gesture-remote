@@ -89,7 +89,7 @@ final class PlaybackAdapter {
 
     @Subscribe
     public void onVerticalDrag(VerticalDrag drag) {
-        final float delta = drag.getDistance() / size.getHeight() * 512f;
+        final float delta = drag.getDistance() / size.getHeight() * 100f;
         final float value = volume.update(delta);
 
         if (Float.isNaN(value)) {

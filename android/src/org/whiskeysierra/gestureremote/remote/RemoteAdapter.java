@@ -6,16 +6,14 @@ import com.google.inject.Inject;
 import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.gestureremote.command.playback.Fullscreen;
 import org.whiskeysierra.gestureremote.command.playback.Pause;
-import org.whiskeysierra.gestureremote.command.playback.Paused;
 import org.whiskeysierra.gestureremote.command.playback.Play;
-import org.whiskeysierra.gestureremote.command.playback.Playing;
 import org.whiskeysierra.gestureremote.command.playback.Seek;
 import org.whiskeysierra.gestureremote.command.playback.TurnVolume;
 import org.whiskeysierra.gestureremote.command.playback.Window;
 import org.whiskeysierra.gestureremote.command.playlist.Next;
 import org.whiskeysierra.gestureremote.command.playlist.Previous;
 
-final class RemoteControlAdapter {
+final class RemoteAdapter {
 
     @Inject
     private EventBus bus;
@@ -30,16 +28,12 @@ final class RemoteControlAdapter {
 
     @Subscribe
     public void onPlay(Play _) {
-        if (remote.play()) {
-            bus.post(Playing.INSTANCE);
-        }
+        remote.play();
     }
 
     @Subscribe
     public void onPause(Pause _) {
-        if (remote.pause()) {
-            bus.post(Paused.INSTANCE);
-        }
+        remote.pause();
     }
 
     @Subscribe

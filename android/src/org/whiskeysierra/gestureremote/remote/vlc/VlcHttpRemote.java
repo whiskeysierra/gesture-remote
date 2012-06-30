@@ -38,6 +38,8 @@ final class VlcHttpRemote implements Remote {
 
     private static final Logger LOG = LoggerFactory.getLogger(VlcHttpRemote.class);
 
+    private final Void[] none = {};
+
     private Server server;
 
     @Inject
@@ -73,18 +75,30 @@ final class VlcHttpRemote implements Remote {
         }
         server = connect.getServer();
 
-        if (executeAndUpdateStatus(null, null).get()) {
-            bus.post(new Connected(server));
-        }
+        final RemoteTask task = new RemoteTask(null);
+        task.setEvent(new Connected(server));
+        task.execute(none);
+        //bus.post(new Connected(server));
     }
 
-    final class VlcHttpRemoteTask extends AsyncTask<Object, Void, Boolean> {
+    final class RemoteTask extends AsyncTask<Void, Void, Void> {
+
+        private final String command;
+        private String value;
+        private boolean updateState;
+        private Object event;
+
+
+        public RemoteTask(String command) {
+            this.command = command;
+        }
 
         @Override
-        protected Boolean doInBackground(Object... params) {
-            final String command = (String) params[0];
-            final String value = (String) params[1];
-            final Boolean parse = (Boolean) params[2];
+        protected Void doInBackground(Void... _) {
+            if (server == null) {
+                LOG.info("Not sending {}, because we are not connected to a server", command);
+                return null;
+            }
 
             try {
                 final String uri = "/requests/status.xml";
@@ -105,18 +119,19 @@ final class VlcHttpRemote implements Remote {
                 final InputStream stream = connection.getInputStream();
 
                 try {
-                    if (parse) {
+                    if (updateState) {
                         final Document document = builder.parse(stream);
 
                         final Node stateNode = document.getElementsByTagName("state").item(0);
-                        final State state = State.valueOf(stateNode.getTextContent().toUpperCase(Locale.ENGLISH));
-                        bus.post(new StateUpdate(state));
+                        if (stateNode != null) {
+                            // no idea why this is happening sometimes
+                            final State state = State.valueOf(stateNode.getTextContent().toUpperCase(Locale.ENGLISH));
+                            bus.post(new StateUpdate(state));
+                        }
                     }
                 } finally {
                     stream.close();
                 }
-
-                return true;
             } catch (MalformedURLException e) {
                 LOG.info("Malformed url?!", e);
                 bus.post(new ServerError(e.getMessage()));
@@ -128,79 +143,86 @@ final class VlcHttpRemote implements Remote {
                 bus.post(new ServerError(e.getMessage()));
             }
 
-            return false;
-        }
-
-    }
-
-    private AsyncTask<Object, Void, Boolean> execute(@Nullable String command) {
-        return execute(command, null);
-    }
-
-    private AsyncTask<Object, Void, Boolean> execute(@Nullable String command, @Nullable String value) {
-        return executeAndUpdateStatus(command, value);
-    }
-
-
-    private AsyncTask<Object, Void, Boolean> executeAndUpdateStatus(@Nullable String command, @Nullable String value) {
-        if (server == null) {
-            LOG.info("Not sending {}, because we are not connected to a server", command);
             return null;
         }
 
-        return new VlcHttpRemoteTask().execute(command, value, true);
+        @Override
+        protected void onPostExecute(Void _) {
+            if (event != null) {
+                bus.post(event);
+            }
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public void setUpdateState(boolean updateState) {
+            this.updateState = updateState;
+        }
+
+        public void setEvent(Object event) {
+            this.event = event;
+        }
+
     }
 
+    private void execute(@Nullable String command) {
+        final RemoteTask task = new RemoteTask(command);
+        task.execute(none);
+    }
+
+    private void execute(@Nullable String command, @Nullable String value) {
+        final RemoteTask task = new RemoteTask(command);
+        task.setValue(value);
+        task.execute(none);
+    }
 
     @Override
-    public boolean play() {
+    public void play() {
         // should be pl_play, but that does not work, because
         // status.xml seems to return the old state, instead of the current
         // in that case
-        executeAndUpdateStatus("pl_pause", null);
-        return true;
+        final RemoteTask task = new RemoteTask("pl_pause");
+        task.setUpdateState(true);
+        task.execute(none);
     }
 
     @Override
-    public boolean pause() {
-        executeAndUpdateStatus("pl_pause", null);
-        return true;
+    public void pause() {
+        final RemoteTask task = new RemoteTask("pl_pause");
+        task.setUpdateState(true);
+        task.execute(none);
     }
 
     @Override
-    public boolean previous() {
+    public void previous() {
         execute("pl_previous");
-        return true;
     }
 
     @Override
-    public boolean next() {
+    public void next() {
         execute("pl_next");
-        return true;
     }
 
     @Override
-    public boolean seek(float percentage) {
+    public void seek(float percentage) {
         execute("seek", String.format("%.2f%%", percentage));
-        return true;
     }
 
     @Override
-    public boolean volume(float percentage) {
-        execute("volume", String.format("%+.0f", percentage));
-        return true;
+    public void volume(float percentage) {
+        execute("volume", String.format("%+.0f", percentage / 100f * 512f));
     }
 
     @Override
-    public boolean fullscreen() {
+    public void fullscreen() {
         execute("fullscreen");
-        return true;
     }
 
     @Override
-    public boolean window() {
+    public void window() {
         execute("fullscreen");
-        return true;
     }
 
 }

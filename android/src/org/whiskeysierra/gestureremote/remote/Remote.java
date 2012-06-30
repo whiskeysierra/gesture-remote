@@ -2,20 +2,20 @@ package org.whiskeysierra.gestureremote.remote;
 
 public interface Remote {
 
-    boolean play();
+    void play();
 
-    boolean pause();
+    void pause();
 
-    boolean previous();
+    void previous();
 
-    boolean next();
+    void next();
 
-    boolean seek(float percentage);
+    void seek(float percentage);
 
-    boolean volume(float percentage);
+    void volume(float percentage);
 
-    boolean fullscreen();
+    void fullscreen();
 
-    boolean window();
+    void window();
 
 }
