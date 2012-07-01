@@ -1,6 +1,5 @@
 package org.whiskeysierra.gestureremote.server;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +14,7 @@ import org.whiskeysierra.R;
 import org.whiskeysierra.R.drawable;
 import org.whiskeysierra.R.id;
 import org.whiskeysierra.R.string;
-import org.whiskeysierra.gestureremote.FinishAction;
+import org.whiskeysierra.gestureremote.util.FinishAction;
 import org.whiskeysierra.gestureremote.server.model.Server;
 import org.whiskeysierra.gestureremote.util.KeyboardHider;
 import roboguice.activity.RoboActivity;

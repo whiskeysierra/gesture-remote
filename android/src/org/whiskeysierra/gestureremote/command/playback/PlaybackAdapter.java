@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.whiskeysierra.gestureremote.ViewSize;
+import org.whiskeysierra.gestureremote.util.ViewSize;
 import org.whiskeysierra.gestureremote.recognition.gestures.DoubleTap;
 import org.whiskeysierra.gestureremote.recognition.gestures.HorizontalDrag;
 import org.whiskeysierra.gestureremote.recognition.gestures.Pinch;

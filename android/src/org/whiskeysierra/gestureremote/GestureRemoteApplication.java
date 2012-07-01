@@ -10,9 +10,8 @@ public class GestureRemoteApplication extends Application {
 
     @Override
     public void onCreate() {
-        final DefaultRoboModule module = RoboGuice.newDefaultRoboModule(this);
         final Module[] modules = {
-            module,
+            RoboGuice.newDefaultRoboModule(this),
             new GestureRemoteModule()
         };
         RoboGuice.setBaseApplicationInjector(this, Stage.PRODUCTION, modules);

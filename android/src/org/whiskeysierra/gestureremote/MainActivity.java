@@ -26,6 +26,8 @@ import org.whiskeysierra.gestureremote.command.playlist.Previous;
 import org.whiskeysierra.gestureremote.server.Connected;
 import org.whiskeysierra.gestureremote.server.Disconnect;
 import org.whiskeysierra.gestureremote.server.ServerListActivity;
+import org.whiskeysierra.gestureremote.util.ChildActivityIntentAction;
+import org.whiskeysierra.gestureremote.util.ViewSize;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 

@@ -8,7 +8,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import org.nnsoft.guice.lifegycle.AfterInjection;
-import org.whiskeysierra.gestureremote.ViewSize;
+import org.whiskeysierra.gestureremote.util.ViewSize;
 import org.whiskeysierra.gestureremote.recognition.gestures.DoubleTap;
 import org.whiskeysierra.gestureremote.recognition.gestures.LeftFling;
 import org.whiskeysierra.gestureremote.recognition.gestures.HorizontalDrag;

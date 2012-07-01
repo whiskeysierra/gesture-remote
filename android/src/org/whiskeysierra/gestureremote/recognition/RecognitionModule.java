@@ -7,7 +7,7 @@ import com.google.inject.Singleton;
 import java.util.Arrays;
 import java.util.List;
 
-public final class GestureModule extends AbstractModule {
+public final class RecognitionModule extends AbstractModule {
 
     @Override
     protected void configure() {

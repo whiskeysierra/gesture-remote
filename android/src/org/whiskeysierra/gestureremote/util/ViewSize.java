@@ -1,4 +1,4 @@
-package org.whiskeysierra.gestureremote;
+package org.whiskeysierra.gestureremote.util;
 
 public final class ViewSize {
 

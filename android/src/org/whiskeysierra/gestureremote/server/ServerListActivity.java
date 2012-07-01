@@ -21,7 +21,7 @@ import org.nnsoft.guice.lifegycle.AfterInjection;
 import org.whiskeysierra.R;
 import org.whiskeysierra.R.id;
 import org.whiskeysierra.R.string;
-import org.whiskeysierra.gestureremote.FinishAction;
+import org.whiskeysierra.gestureremote.util.FinishAction;
 import org.whiskeysierra.gestureremote.server.model.Server;
 import roboguice.activity.RoboListActivity;
 import roboguice.inject.InjectView;
