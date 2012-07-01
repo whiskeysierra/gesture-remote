@@ -1,0 +1,1 @@
+digraph architecture { node [shape="box"] edge [dir="both"] EventBus -> CLI EventBus -> SqlValidator EventBus -> QueryProcessor QueryProcessor -> Hadoop Hadoop -> JobAssembler }

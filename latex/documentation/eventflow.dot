@@ -1,0 +1,1 @@
+digraph eventflow { node [shape="box"] edge [dir="forward"] main -> recognition recognition -> gestures main -> command main -> remote remote -> vlc }

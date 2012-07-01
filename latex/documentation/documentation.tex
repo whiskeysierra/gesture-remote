@@ -32,11 +32,16 @@
 \maketitle
 \end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.35\textwidth]{vlc.png}
+\end{figure}
+
 \newpage
 \tableofcontents
 
 \newpage
-\section*{Projektidee}
+\section{Projektidee}
 Zur Zeit steigt die Nachfrage nach gut bedienbaren Streamingsystemen für den Heimbereich immer weiter an. Dabei wird nicht mehr nur auf die Installation und Wartbarkeit wert gelegt, sondern auch auf die Bedienbarkeit. Und doch können fest installierte Geräte mit Streamingsoftware meist nur über die eingesetzten Peripheriegeräte gesteuert werden. \\
 Da sich in den meisten dieser Haushalte auch ein mobiles Endgerät befindet, wäre eine Steuerung der Software über diese Technologie von Vorteil. Dabei spielt vor allem die Art der Steuerung eine wichtige Rolle. Der Benutzer soll nicht nur eine Oberfläche mit entsprechenden Schaltflächen vorfinden, sondern prägnante Gesten, die sich wie bei älteren Geräten vorfindbar, für eine simple Benutzung sorgen. Damit würde, wie bei klassischen TV-Geräten, eine Fernbedienung geschaffen die sich an den einprägsamen Bewegungen (in diesem Fall Gesten) orientiert. \\
 Dieses Projekt soll sich mit der Umsetzung einer solchen Remotesteuerung von einem mobilen Endgerät aus, zur Streamingsoftware beschäftigen.
@@ -44,19 +49,12 @@ Dieses Projekt soll sich mit der Umsetzung einer solchen Remotesteuerung von ein
 Es gibt frei verfügbare Apps mit ähnlichen Ansätzen. Am interessantesten ist wohl die \textit{Android VLC Remote} App \cite{android-vlc-remote}. Das größte Manko an Apps dieser Art ist, unserer Meinung nach, dass die Möglichkeiten des Smartphones nicht voll ausgereizt werden und damit die Möglichkeiten für eine größere Nutzerzufriedenheit nicht in dem Maße ausgeschöpft werden wie sie könnten.
 
 \newpage
-\section*{Konzept}
+\section{Konzept}
 
-\subsection*{Gesten}
-Alle letztendlich unterstützten Gesten sollen den folgenden Kriterien genügen. Durch die Einhaltung dieser Kriterien versprechen wir uns eine kurze Lernphase und damit extrem kleine Einstiegshürde für Nutzer der App.
+\subsection{Gesten}
+Alle letztendlich unterstützten Gesten sollen den folgenden Kriterien genügen. Durch die Einhaltung dieser Kriterien versprechen wir uns eine kurze Lernphase und damit extrem kleine Einstiegshürde für Nutzer der App. \newline
 
-\begin{itemize}
-	\item \textbf{Erwartungskonform} \\
-		Gesten wie Flick, Tap und Scale sind durch bestehende Apps bei vielen Nutzern bereits mental mit entsprechenden Funktionen verknüpft. Diese Erwartungshaltung sollte, sofern möglich, erfüllt werden.
-	\item \textbf{Innovativ} \\
-		Falls es für bestimmte Funktionen noch keinen De facto-Standard gibt was eine Gestensteuerung betrifft, so sollen neue Gesten gefunden werden, die ggf. so noch nicht genutzt wurden. Wichtig dabei ist jedoch der nächste Punkt.
-	\item \textbf{Intuitiv und nachvollziehbar} \\
-		Bei neuartigen, ungewohnten oder seltenen Gesten sollte eine Funktion angestoßen werden, die sinnvoll zur entsprechenden Geste passt. Hier sind ggf. kleine A/B-Tests oder eng gefasste Spartakusgruppe-Interviews sinnvoll.
-\end{itemize}
+Gesten wie Flick, Tap und Scale sind durch bestehende Apps bei vielen Nutzern bereits mental mit entsprechenden Funktionen verknüpft. Diese Erwartungshaltung sollte, sofern möglich, erfüllt werden.
 
 Abbildung \ref{fig:gestures} zeigt einige Gesten die ad hoc in Frage kommen sowie mögliche Funktionen, mit denen sie verknüpft werden könnten.
 
@@ -83,13 +81,90 @@ Abbildung \ref{fig:gestures} zeigt einige Gesten die ad hoc in Frage kommen sowi
 \end{figure}
 
 \newpage
-\section{Funktionsumfang}
-
-\newpage
 \section{Architektur}
+Java 6, Android 2.3+
+Guava (EventBus!) + Usage
+Guice, RoboGuice, Lifegycle, Slf4j Android
+Paket- und Komponentenstruktur
 
 \newpage
-\section{Installations- und Bedienungsanleitung}
+\section{Installationsanleitung}
+a) git checkout, intellij/eclipse, build, deploy
+b) download + install: link!
+
+\newpage
+\section{Bedienungsanleitung}
+Screenshots, Schritt für Schritt-Anleitung
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_1.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_2.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_3.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_4.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_5.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_6.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_7.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_8.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_9.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_10.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_11.png}
+\caption{Caption}
+\end{figure}
+
+\newpage
+\section{Fazit}
+Probleme mit doppeldeutigen Gesten und ungenauer Erkennung
 
 \newpage
 \addcontentsline{toc}{section}{Literatur}
