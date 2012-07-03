@@ -1,3 +1,8 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \defcounter {refsection}{0}\relax 
 \select@language {ngerman}
+<<<<<<< HEAD
+=======
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {1}{\ignorespaces VLC Command Beschreibung\relax }}{8}{table.caption.7}
+>>>>>>> first docs

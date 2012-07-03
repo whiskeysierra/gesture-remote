@@ -31,7 +31,58 @@
 \includegraphics[width=0.5\textwidth]{beuth.eps}
 \maketitle
 \end{figure}
+\newpage
+\tableofcontents
+\newpage
+\section{Projektidee}
+Zur Zeit steigt die Nachfrage nach gut bedienbaren Streamingsystemen für den Heimbereich immer weiter an. Dabei wird nicht mehr nur auf die Installation und Wartbarkeit wert gelegt, sondern auch auf die Bedienbarkeit. Und doch können fest installierte Geräte mit Streamingsoftware meist nur über die eingesetzten Peripheriegeräte gesteuert werden. \\
+Da sich in den meisten dieser Haushalte auch ein mobiles Endgerät befindet, wäre eine Steuerung der Software über diese Technologie von Vorteil. Dabei spielt vor allem die Art der Steuerung eine wichtige Rolle. Der Benutzer soll nicht nur eine Oberfläche mit entsprechenden Schaltflächen vorfinden, sondern prägnante Gesten, die sich wie bei älteren Geräten vorfindbar, für eine simple Benutzung sorgen. Damit würde, wie bei klassischen TV-Geräten, eine Fernbedienung geschaffen die sich an den einprägsamen Bewegungen (in diesem Fall Gesten) orientiert. \\
+Dieses Projekt soll sich mit der Umsetzung einer solchen Remotesteuerung von einem mobilen Endgerät aus, zur Streamingsoftware beschäftigen.
 
+Es gibt frei verfügbare Apps mit ähnlichen Ansätzen. Am interessantesten ist wohl die \textit{Android VLC Remote} App \cite{android-vlc-remote}. Das größte Manko an Apps dieser Art ist, unserer Meinung nach, dass die Möglichkeiten des Smartphones nicht voll ausgereizt werden und damit die Möglichkeiten für eine größere Nutzerzufriedenheit nicht in dem Maße ausgeschöpft werden wie sie könnten.
+
+\newpage
+\section{Konzept}
+
+\subsection{Gesten}
+Alle letztendlich unterstützten Gesten sollen den folgenden Kriterien genügen. Durch die Einhaltung dieser Kriterien versprechen wir uns eine kurze Lernphase und damit extrem kleine Einstiegshürde für Nutzer der App.
+
+\begin{itemize}
+	\item \textbf{Erwartungskonform} \\
+		Gesten wie Flick, Tap und Scale sind durch bestehende Apps bei vielen Nutzern bereits mental mit entsprechenden Funktionen verknüpft. Diese Erwartungshaltung sollte, sofern möglich, erfüllt werden.
+	\item \textbf{Innovativ} \\
+		Falls es für bestimmte Funktionen noch keinen De facto-Standard gibt was eine Gestensteuerung betrifft, so sollen neue Gesten gefunden werden, die ggf. so noch nicht genutzt wurden. Wichtig dabei ist jedoch der nächste Punkt.
+	\item \textbf{Intuitiv und nachvollziehbar} \\
+		Bei neuartigen, ungewohnten oder seltenen Gesten sollte eine Funktion angestoßen werden, die sinnvoll zur entsprechenden Geste passt. Hier sind ggf. kleine A/B-Tests oder eng gefasste Spartakusgruppe-Interviews sinnvoll.
+\end{itemize}
+
+Abbildung \ref{fig:gestures} zeigt einige Gesten die ad hoc in Frage kommen sowie mögliche Funktionen, mit denen sie verknüpft werden könnten.
+
+\begin{figure}[H]
+\centering
+\subfigure[Play/Pause]{
+    \includegraphics[width=0.2\textwidth]{one_finger_tap_gestureworks.eps}
+}
+\subfigure[Nächster Titel]{
+    \reflectbox{\includegraphics[width=0.35\textwidth]{one_finger_flick_gestureworks.eps}}
+}
+\subfigure[Vorheriger Titel]{
+    \includegraphics[width=0.35\textwidth]{one_finger_flick_gestureworks.eps}
+}
+\subfigure[Volume/Seek]{
+    \includegraphics[width=0.3\textwidth]{stroke_shape_circle_gestureworks.eps}
+    \label{fig:seek}
+}
+\subfigure[Vollbild]{
+    \includegraphics[width=0.2\textwidth]{two_finger_scale_gestureworks.eps}
+}
+\caption{Gesten}
+\label{fig:gestures}
+\end{figure}
+
+\subsection{Preview}
+
+<<<<<<< HEAD
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.35\textwidth]{vlc.png}
@@ -119,12 +170,83 @@ Screenshots, Schritt für Schritt-Anleitung
 \includegraphics[width=0.75\textwidth]{Screenshot_4.png}
 \caption{Caption}
 \end{figure}
+=======
+Ein optionales Zusatzfeature ist eine Seek-Funktion mit Preview, d.h. während die Seek-Geste (s. Abbildung \ref{fig:seek}) ausgeführt wird, soll ein Vorschaubild der aktuellen Suchposition innerhalb des Streams angezeigt werden. Abbildung \ref{fig:youtube} zeigt einen ähnlichen Ansatz des YouTube-Players. Hier wird auf einer Zeitleiste beim Mouse-Over ein entsprechender Tooltip angezeigt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{youtube.png}
+\caption{YouTube Preview Feature}
+\label{fig:youtube}
+\end{figure}
+
+Die konkrete Darstellung muss natürlich für Smartphones separat konzipiert und entwickelt werden. Die besondere technische Herausforderung wird das Interagieren der Remote- und der Streaming-Schnittstelle sein, da die einzelnen Vorschaubilder über den Stream beschafft werden müssen.
+
+\subsection{Technologien}
+Aus der Problemstellung wird zunächst ersichtlich, dass für die Umsetzung zwei verschiedene Komponenten betrachtet werden müssen. Dies ist einerseits die Software, die zum Abspielen und Streamen der Medieninhalte zuständig ist, sowie anderseits das mobile Endgerät, das als Fernsteuerung dienen wird. \\
+Für den Mediaplayer soll der VLC Media Player von VideoLan \cite{VLC} benutzt werden. Diese Software ist sowohl kostenlos, als auch für die gängigen Betriebssysteme verfügbar. Somit kann ein weiter Einsatz gewährleistet werden. Weiterhin besitzt der VLC eine HTTP-Schnittstelle \cite{VLC:WebInterface}, über die mittels \textit{controls} (Kontrollkommandos z.B. Start/Stop) und \textit{commands} (Einstellungen z.B. Lautstärke) der Player gesteuert werden kann \cite{VLC:HowTo}. \\
+Auf der Seite des mobilen Endgeräts fiel die Wahl auf die verbreitete Android-Plattform \cite{Android}. Die Entwicklung von Software für dieses System ist ohne Einschränkung der Entwicklungsumgebung möglich und die Distribution ist kostengünstiger und einfacher, als seine Konkurrenzsysteme. Den Entwicklern liegen bereits Smartphones mit verschiedenen Android-Versionen vor, um den Echtzeitbetrieb für eine breite Verteilung zu entwickeln und zu testen.
+
+\subsection{Portierbarkeit}
+Um die Ausbaufähigkeit der Anwendung sicherzustellen, wäre es wünschenswert, wenn es nur minimale Abhängigkeiten an den VLC Media Player als zu steuernde Software gibt. So wäre es in einer weiteren Ausbaustufe möglich dem Nutzer der App anzubieten diverse Video Player zu steuern, sofern sie unterstützt werden. Die Grundlage für diese Möglichkeit sollte dadurch sichergestellt werden, dass die eigentliche Kommunikation mit dem VLC Media Player innerhalb des Systems mithilfe sinnvoll definierter Schnittstellen gekapselt wird.
+
+\newpage
+\section{Projektplanung}
+
+Für die Realisierung dieses Projektes gilt folgender Meilensteinplan:
+
+\subsection{Version 1, \date{11.05.2012}}
+\begin{itemize}
+\item Evaluierung des VLC-HTTP-Schnittstellenumfangs
+\item Layout aus den Vorgaben erstellen
+\item Umsetzung der ersten Steuerungskomponenten
+\end{itemize}
+
+\subsection{Version 2, \date{08.06.2012}}
+\begin{itemize}
+\item Implementierung der weiteren Steuerungsfunktionen
+\item Evaluierung der Übermittlung von Metadaten an das Mobilgerät
+\item Implementierung der Previewfunktionalitäten
+\end{itemize}
+
+\subsection{Version 3, \date{03.07.2012}}
+\begin{itemize}
+\item Fertigstellung der Funktionalitäten
+\item Qualitätssicherung
+\item Installation auf mobilen Testgeräten
+\end{itemize}
+
+\section{Projektaufteilung}
+Die Entwicklung des Projektes wird zu gleichen Teilen auf die Entwickler Schönborn und Feldmann getragen, wobei die Zuständigkeiten wie folgt verteilt werden:
+
+\begin{table}[h!b!p!]
+\begin{tabular*}{\textwidth}{ l l l l }
+	\toprule
+	\textbf{Aufgabe} & \textbf{Version} & \textbf{Entwickler} \\
+	\midrule
+	Gestenentwicklung & 1 & Willi Schönborn  \\ 
+	User Interface & 1, 2 & Willi Schönborn \\
+	Gestenerkennung & 2 & Willi Schönborn \\
+	VLC HTTP Interface & 1, 2 & Andreas Feldmann \\
+	Remote Control Interface & 1, 2 & Andreas Feldmann \\
+	Streaming & 2 & Andreas Feldmann \\
+	\bottomrule
+\end{tabular*}
+\end{table}
+
+\newpage
+
+\section{Dokumentation}
+\subsection{VLC mit HTTP-Interface starten}
+Ab Version 2.x wurde das HTTP-Interface durch eine LUA Schnittstelle ersetzt, um die Wiedergabe scripten zu können. Das HTTP-Interface wird dabei nicht mehr standardmäßig mitgeladen und ist somit auch nicht nach Programmstart verfügbar. Um das Interface für den Remotezugriff dennoch nutzen zu können,  muss das Programm mit dem Parameter \textit{--extraintf=http} gestartet werden. Dieses wird dann in der Konsolenausgabe bestätigt. \\
+>>>>>>> first docs
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{Screenshot_5.png}
 \caption{Caption}
 \end{figure}
+<<<<<<< HEAD
 
 \begin{figure}[H]
 \centering
@@ -161,7 +283,65 @@ Screenshots, Schritt für Schritt-Anleitung
 \includegraphics[width=0.75\textwidth]{Screenshot_11.png}
 \caption{Caption}
 \end{figure}
+=======
+Hier ist gut sichtbar, dass die HTTP-Requests über das LUA-Interface geleitet werden. Die Aktivierung in den Einstellungen, wie es vor Version 2.x möglich war, existiert nicht mehr. Weiterhin können mit den Parametern  \textit{--http-host \textbf{host}} und \textit{--http-port \textbf{port}} die IP, sowie der Port angegeben werden, unter dem das Interface zu erreichen ist. Um dies zu testen kann man jetzt die Adresse \textit{http://host:port} (Standard: \textit{http:127.0.0.1:8080}) in einem Webbrowser aufrufen und erhält bei Erfolg ein HTML-Interface zur Steuerung. \\
+Die einzelnen Bedienelemente senden bei Benutzung eine jQuery-Request an den VLC-Player und benutzt dabei die \textit{command:value} Syntax.
+\begin{lstlisting}[caption=Play Button Command][label=code:command_button_query]
+$('#buttonPlPlay').click(function(){
+					sendCommand({
+						'command': 'pl_play',
+						'id':$('.jstree-clicked','#libraryTree').first().parents().first().attr('id').substr(5)
+					})
+					return false;
+				});
+\end{lstlisting}
 
+\subsection{Verfügbare Kommandos}
+Da die Dokumentation für die Version ab 2.x sich mit den Commands im Quelltext unterscheidet, werden die aus der Beispielanwendung extrahiert und getestet.
+Die folgenden Befehle konnten gefunden werden:\\
+\begin{table}
+\caption{VLC Command Beschreibung}
+
+\begin{center}
+\begin{tabular}{|>{\bfseries}l|c|}
+  \hline
+  Command & Funktion\\
+  \hline\hline
+  pl\_play & Playlisteintrag abspielen \\
+  pl\_stop & Wiedergabe stoppen \\
+  pl\_previous & Einen Titel zurückspringen \\
+  pl\_next & Zum nächsten Titel springen \\
+  pl\_empty & Playlist leeren \\
+  pl\_loop & Loop einschalten \\
+  pl\_repeat & Plalisteintrag wiederholen \\
+  pl\_random & Zufallsmodus ein/aus \\
+  \hline
+\end{tabular}
+\label{tab:vlc_commands}
+\end{center}
+\end{table}
+
+Diese Commands sind für den Betrieb des VLC essentiell und werden für die Anfangsphase der Applikationserstellung von größter Wichtigkeit sein. \\
+Für die Einstellungen wie Lautstärke oder Seek kann aus dem Quelltext wenig erschlossen werden. Allein die Methoden, um die Werte zu bekommen ist zu finden, sie zu setzen nicht.
+
+\newpage
+\subsection{Module}
+
+Die \textbf{Gesture Remote} wurde bei der Konzeption in verschiedene Module aufgeteilt, um einerseits die Entwicklung parallel betreiben zu können, andererseits um die Applikation möglichst offen für Erweiterungen zu gestalten. Denkbar wären hier beispielsweise das Hinzufügen neuer Gesten oder Unterstützung anderer Mediaplayer bzw. weiterer Protokolle.
+
+\subsubsection{Command}
+Im Commandmodul sind die einzelnen Kommandos für die Steuerung des VLC-Players hinterlegt. Dasich manche der Befehle auf den Player an sich oder auf die Steuerung der Playlist beziehen können, wurden diese Befehle auch im Code sinnvollerweise in \textit{playback} und \textit{playlist} gegliedert.
+\subsubsection{Recognition}
+Das Recognition Modul ist wohl das wichtigste Modul in der Applikation. Hier werden die vom Nutzer eingegebenen Gesten verarbeitet. Dabei wird für die einfache Gesten (z.B. Tap, Fling/Scroll) ein gemeinsamer Erkennungsdienst eingesetzt, für komplexe Gesten wie z.B. Pinch/Zoom wird jeweils ein eigener Dienst benutzt (z.B. PinchZoomRecognizer).
+\subsubsection{Remote}
+Dieses Modul deckt die Fernbedienungsfunktionen der Applikation ab. Einfach Befehle wie Play/Pause, aber auch nicht lineare Attributveränderungen, wie z.B. die prozentuale Steigerung der Lautstärke in Bezug auf die Länge der Geste sind hier untergebracht. Von hier aus werden die Kommandos, die die Gestenerkennung erfolgreich erkannt hat, an den VLC-Player als Query-Strings geschickt.
+\subsubsection{Server}
+Im Servermodul sind die Funktionalitäten hinterlegt, welche die Applikation mit einem laufenden VLC-Player verbindet. Die Verbindungsdaten für eine erfolgreiche Verbindung sind in einer SQLite Datenbank hinterlegt, welche sich auf jedem Android per Standard befindet. Durch diese Datenhaltung müssen keine externen Daten nachgeladen werden und der Benutzer kann auch in Netzwerken ohne Internetanschluss die Applikation benutzen.
+Die Daten werden in einer einzigen Tabelle gespeichert, welche die Felder für \textit{Adresse} und \textit{Port}, sowie einen Bezeichner \textit{Name} um den Servern eine Bezeichnung zu geben und sie somit einfacher identifizieren zu können. Ein Beispiel hierfür wäre: \\
+BHT-Server, 141.64.64.101:8080 (\textit{Name}, \textit{Adresse}:\textit{Port})\\
+>>>>>>> first docs
+
+\subsection{Frameworks}
 \newpage
 \section{Fazit}
 Probleme mit doppeldeutigen Gesten und ungenauer Erkennung
