@@ -328,10 +328,10 @@ Gut zu erkennen ist, dass mit Hilfe des RoboGuice Frameworkes die Attribute im K
 Livegycle ist eine kleine Bibliothek, die für die durch Guice oder RoboJuice injizierten Objekte ein Lebenszyklusmanagement bereitstellt. Dieses Management erfolgt ebenfalls durch Annotationen und erlaubt es dem Entwicklern zu bestimmten Zeitpunkten (z.B. AfterInjection, PreDestroy, PostConstruction) das Objekt zu manipulieren oder es direkt an bestimmte Methoden zu übergeben.\cite{lifegycle-libaries}
 
 \subsubsection{SLF4J Android}
-Simple Logging Facade for Java Android ist eine umstrukturierte Variante der bekannten SLF4J Libary. welche es erlaubt zur Laufzeit den Code an vorhandene Loogingmechanismen (z.B. java.util.logging, log4j) anzubinden. Für Android wurde sie zudem mit einer simplen Weiterleitung aller Log-anfragen an den Android Logger erweitert. 
+Simple Logging Facade for Java Android ist eine umstrukturierte Variante der bekannten SLF4J Libary. welche es erlaubt zur Laufzeit den Code an vorhandene Loogingmechanismen (z.B. java.util.logging, log4j) anzubinden. Für Android wurde sie zudem mit einer simplen Weiterleitung aller Log-anfragen an den Android Logger erweitert. Der Logger wird wie in der reinen Java-Variante benutzt, lediglich das Log-Level \textbf{TRACE} heißt in Android \textbf{VERBOSE}, die anderen besitzen den gleichen Namen. \cite{sfl4j-android-libaries}
 \subsection{Module}
 
-Die \textbf{Gesture Remote} wurde bei der Konzeption in verschiedene Module aufgeteilt, um einerseits die Entwicklung parallel betreiben zu können, andererseits um die Applikation möglichst offen für Erweiterungen zu gestalten. Denkbar wären hier beispielsweise das Hinzufügen neuer Gesten oder Unterstützung anderer Mediaplayer bzw. weiterer Protokolle. Der Logger wird wie in der reinen Java-Variante benutzt, lediglich das Log-Level \textbf{TRACE} heißt in Android \textbf{VERBOSE}, die anderen besitzen den gleichen Namen. \cite{sfl4j-android-libaries}
+Die \textbf{Gesture Remote} wurde bei der Konzeption in verschiedene Module aufgeteilt, um einerseits die Entwicklung parallel betreiben zu können, andererseits um die Applikation möglichst offen für Erweiterungen zu gestalten. Denkbar wären hier beispielsweise das Hinzufügen neuer Gesten oder Unterstützung anderer Mediaplayer bzw. weiterer Protokolle. 
 
 \subsubsection{Command}
 Im Commandmodul sind die einzelnen Kommandos für die Steuerung des VLC-Players hinterlegt. Da sich manche der Befehle auf den Player an sich oder auf die Steuerung der Playlist beziehen können, wurden diese Befehle auch im Code sinnvollerweise in \textit{playback} und \textit{playlist} gegliedert.
@@ -344,7 +344,7 @@ Im Servermodul sind die Funktionalitäten hinterlegt, welche die Applikation mit
 Die Daten werden in einer einzigen Tabelle gespeichert, welche die Felder für \textit{Adresse} und \textit{Port}, sowie einen Bezeichner \textit{Name} um den Servern eine Bezeichnung zu geben und sie somit einfacher identifizieren zu können. Ein Beispiel hierfür wäre: \\
 BHT-Server, 141.64.64.101:8080 (\textit{Name}, \textit{Adresse}:\textit{Port})\\
 
-newpage
+\newpage
 \subsection{Installationsanleitung}
 Um die Applikation auf dem Endgerät nutzen zu können sind folgende Schritte notwendig:
 \begin{enumerate}
@@ -356,6 +356,7 @@ Um die Applikation auf dem Endgerät nutzen zu können sind folgende Schritte no
 \item Auf dem Hauptview die Gestensteuerung benutzen
 \end{enumerate}
 \newpage
+
 \subsection{Bedienungsanleitung}
 Screenshots, Schritt für Schritt-Anleitung
 
