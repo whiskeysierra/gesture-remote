@@ -11,14 +11,43 @@
 \usepackage{array}
 \usepackage[table]{xcolor}
 \usepackage{booktabs}
-\usepackage{}
+\usepackage{listings}
 \usepackage{multirow}
 \usepackage[format=plain,labelfont=bf,up,justification=centering]{caption}
 \setcounter{secnumdepth}{-1} 
 \usepackage{hyperref}
 \usepackage{nameref}
-\usepackage{minted}
-\usemintedstyle{friendly}
+%\usepackage{minted}
+%\usemintedstyle{friendly}
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
 
 \bibliography{documentation}
 \title{Gesture Remote \\ VLC Remote Control für die Android-Plattform}
@@ -82,105 +111,11 @@ Abbildung \ref{fig:gestures} zeigt einige Gesten die ad hoc in Frage kommen sowi
 
 \subsection{Preview}
 
-<<<<<<< HEAD
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.35\textwidth]{vlc.png}
 \end{figure}
-
 \newpage
-\tableofcontents
-
-\newpage
-\section{Projektidee}
-Zur Zeit steigt die Nachfrage nach gut bedienbaren Streamingsystemen für den Heimbereich immer weiter an. Dabei wird nicht mehr nur auf die Installation und Wartbarkeit wert gelegt, sondern auch auf die Bedienbarkeit. Und doch können fest installierte Geräte mit Streamingsoftware meist nur über die eingesetzten Peripheriegeräte gesteuert werden. \\
-Da sich in den meisten dieser Haushalte auch ein mobiles Endgerät befindet, wäre eine Steuerung der Software über diese Technologie von Vorteil. Dabei spielt vor allem die Art der Steuerung eine wichtige Rolle. Der Benutzer soll nicht nur eine Oberfläche mit entsprechenden Schaltflächen vorfinden, sondern prägnante Gesten, die sich wie bei älteren Geräten vorfindbar, für eine simple Benutzung sorgen. Damit würde, wie bei klassischen TV-Geräten, eine Fernbedienung geschaffen die sich an den einprägsamen Bewegungen (in diesem Fall Gesten) orientiert. \\
-Dieses Projekt soll sich mit der Umsetzung einer solchen Remotesteuerung von einem mobilen Endgerät aus, zur Streamingsoftware beschäftigen.
-
-Es gibt frei verfügbare Apps mit ähnlichen Ansätzen. Am interessantesten ist wohl die \textit{Android VLC Remote} App \cite{android-vlc-remote}. Das größte Manko an Apps dieser Art ist, unserer Meinung nach, dass die Möglichkeiten des Smartphones nicht voll ausgereizt werden und damit die Möglichkeiten für eine größere Nutzerzufriedenheit nicht in dem Maße ausgeschöpft werden wie sie könnten.
-
-\newpage
-\section{Konzept}
-
-\subsection{Gesten}
-Alle letztendlich unterstützten Gesten sollen den folgenden Kriterien genügen. Durch die Einhaltung dieser Kriterien versprechen wir uns eine kurze Lernphase und damit extrem kleine Einstiegshürde für Nutzer der App. \newline
-
-Gesten wie Flick, Tap und Scale sind durch bestehende Apps bei vielen Nutzern bereits mental mit entsprechenden Funktionen verknüpft. Diese Erwartungshaltung sollte, sofern möglich, erfüllt werden.
-
-Abbildung \ref{fig:gestures} zeigt einige Gesten die ad hoc in Frage kommen sowie mögliche Funktionen, mit denen sie verknüpft werden könnten.
-
-\begin{figure}[H]
-\centering
-\subfigure[Play/Pause]{
-    \includegraphics[width=0.2\textwidth]{one_finger_tap_gestureworks.eps}
-}
-\subfigure[Nächster Titel]{
-    \reflectbox{\includegraphics[width=0.35\textwidth]{one_finger_flick_gestureworks.eps}}
-}
-\subfigure[Vorheriger Titel]{
-    \includegraphics[width=0.35\textwidth]{one_finger_flick_gestureworks.eps}
-}
-\subfigure[Volume/Seek]{
-    \includegraphics[width=0.3\textwidth]{stroke_shape_circle_gestureworks.eps}
-    \label{fig:seek}
-}
-\subfigure[Vollbild]{
-    \includegraphics[width=0.2\textwidth]{two_finger_scale_gestureworks.eps}
-}
-\caption{Gesten}
-\label{fig:gestures}
-\end{figure}
-
-\newpage
-\section{Architektur}
-Java 6, Android 2.3+
-Guava (EventBus!) + Usage
-Guice, RoboGuice, Lifegycle, Slf4j Android
-Paket- und Komponentenstruktur
-
-\newpage
-\section{Installationsanleitung}
-a) git checkout, intellij/eclipse, build, deploy
-b) download + install: link!
-
-\newpage
-\section{Bedienungsanleitung}
-Screenshots, Schritt für Schritt-Anleitung
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_1.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_2.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_3.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_4.png}
-\caption{Caption}
-\end{figure}
-=======
-Ein optionales Zusatzfeature ist eine Seek-Funktion mit Preview, d.h. während die Seek-Geste (s. Abbildung \ref{fig:seek}) ausgeführt wird, soll ein Vorschaubild der aktuellen Suchposition innerhalb des Streams angezeigt werden. Abbildung \ref{fig:youtube} zeigt einen ähnlichen Ansatz des YouTube-Players. Hier wird auf einer Zeitleiste beim Mouse-Over ein entsprechender Tooltip angezeigt.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{youtube.png}
-\caption{YouTube Preview Feature}
-\label{fig:youtube}
-\end{figure}
-
-Die konkrete Darstellung muss natürlich für Smartphones separat konzipiert und entwickelt werden. Die besondere technische Herausforderung wird das Interagieren der Remote- und der Streaming-Schnittstelle sein, da die einzelnen Vorschaubilder über den Stream beschafft werden müssen.
 
 \subsection{Technologien}
 Aus der Problemstellung wird zunächst ersichtlich, dass für die Umsetzung zwei verschiedene Komponenten betrachtet werden müssen. Dies ist einerseits die Software, die zum Abspielen und Streamen der Medieninhalte zuständig ist, sowie anderseits das mobile Endgerät, das als Fernsteuerung dienen wird. \\
@@ -222,7 +157,7 @@ Die Entwicklung des Projektes wird zu gleichen Teilen auf die Entwickler Schönb
 \begin{table}[h!b!p!]
 \begin{tabular*}{\textwidth}{ l l l l }
 	\toprule
-	\textbf{Aufgabe} & \textbf{Version} & \textbf{Entwickler} \\
+\textbf{Aufgabe} & \textbf{Version} & \textbf{Entwickler} \\
 	\midrule
 	Gestenentwicklung & 1 & Willi Schönborn  \\ 
 	User Interface & 1, 2 & Willi Schönborn \\
@@ -239,14 +174,12 @@ Die Entwicklung des Projektes wird zu gleichen Teilen auf die Entwickler Schönb
 \section{Dokumentation}
 \subsection{VLC mit HTTP-Interface starten}
 Ab Version 2.x wurde das HTTP-Interface durch eine LUA Schnittstelle ersetzt, um die Wiedergabe scripten zu können. Das HTTP-Interface wird dabei nicht mehr standardmäßig mitgeladen und ist somit auch nicht nach Programmstart verfügbar. Um das Interface für den Remotezugriff dennoch nutzen zu können,  muss das Programm mit dem Parameter \textit{--extraintf=http} gestartet werden. Dieses wird dann in der Konsolenausgabe bestätigt. \\
->>>>>>> first docs
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{Screenshot_5.png}
 \caption{Caption}
 \end{figure}
-<<<<<<< HEAD
 
 \begin{figure}[H]
 \centering
@@ -283,7 +216,6 @@ Ab Version 2.x wurde das HTTP-Interface durch eine LUA Schnittstelle ersetzt, um
 \includegraphics[width=0.75\textwidth]{Screenshot_11.png}
 \caption{Caption}
 \end{figure}
-=======
 Hier ist gut sichtbar, dass die HTTP-Requests über das LUA-Interface geleitet werden. Die Aktivierung in den Einstellungen, wie es vor Version 2.x möglich war, existiert nicht mehr. Weiterhin können mit den Parametern  \textit{--http-host \textbf{host}} und \textit{--http-port \textbf{port}} die IP, sowie der Port angegeben werden, unter dem das Interface zu erreichen ist. Um dies zu testen kann man jetzt die Adresse \textit{http://host:port} (Standard: \textit{http:127.0.0.1:8080}) in einem Webbrowser aufrufen und erhält bei Erfolg ein HTML-Interface zur Steuerung. \\
 Die einzelnen Bedienelemente senden bei Benutzung eine jQuery-Request an den VLC-Player und benutzt dabei die \textit{command:value} Syntax.
 \begin{lstlisting}[caption=Play Button Command][label=code:command_button_query]
@@ -325,12 +257,84 @@ Diese Commands sind für den Betrieb des VLC essentiell und werden für die Anfa
 Für die Einstellungen wie Lautstärke oder Seek kann aus dem Quelltext wenig erschlossen werden. Allein die Methoden, um die Werte zu bekommen ist zu finden, sie zu setzen nicht.
 
 \newpage
+\subsection{Architektur}
+Die Applikation wurde auf den Grundlagen von Java 6 und dem Androidsystem Version 2.3 entwickelt. Die Entscheidung für diese Version wurde getroffen, da Android 2.3 für die meisten etwas älteren Geräte die momentane aktuellste Betriebssytemversion darstellt (ca. 63,6\% \cite{marktanteil-android} ) . Eine Entwicklung für Android "Ice Cream Sandwich" (Android 4.0) würde die älteren Geräte von der Benutzung ausschließen und nur ca. 11\% der Endgeräte abdecken \cite{marktanteil-android}. \\
+Weiterhin wurden bei der Entwicklung die Frameworks Guava, Guice, RoboGuice, Lifegycle und Slf4j Android benutzt auf die im Folgenden eingegangen wird.
+\subsubsection{Guava}
+Das Guava Framefowrk von Google wurde eingesetzt, um eine Publisher-Subscriber Kommunikation, in Guava \textbf{EventBus} genannt, zwischen den Komponenten in der Applikation aufzubauen. Dieser Kommunikation wird mit Hilfe von Annotation im Code realisiert, somit müssen die Komponenten, anders als bei EventListener, nicht explizit untereinander registriert sein. Zum Vergleich ein Beispielcode mit "klassischer" Javalösung und der selbe Code mit Guava:\\
+\lstset{language=Java}
+\begin{lstlisting}[caption={klassische Javalösung \cite{guava-libaries} }]
+    class ChangeRecorder {
+     void setCustomer(Customer cust) {
+       cust.addChangeListener(new ChangeListener() {
+         public void customerChanged(ChangeEvent e) {
+           recordChange(e.getChange());
+         }
+       };
+     }
+   }
+\end{lstlisting}\newpage
+\lstset{language=Java}
+\begin{lstlisting}[caption={Lösung mit Guava \cite{guava-libaries}}]
+    // Class is typically registered by the container.
+   class EventBusChangeRecorder {
+     @Subscribe public void recordCustomerChange(ChangeEvent e) {
+       recordChange(e.getChange());
+     }
+   }
+\end{lstlisting}
+Durch die Verwendung der Guava Libaries wird der Code einerseits deutlich lesbarer, da die Intention des EventHandlings besser hervortritt, andereseits auch kürzer, da die anonymen Listener Implementierungen wegfallen und somit lediglich der notwendige Code für die Reaktion auf das Event implementiert werden muss.
+\subsubsection{Guice, RoboGuice \& Lifegycle}
+Gucie ist ein von Google entwickletes Framework für Java, welches erlaubt, Java-Klassen mittels Dependency Injection zu konfigurieren. Die Hauptintention von Guice ist es, keine Factorymethoden mehr schreiben zu müssen, sondern die Erstellung und Bindung bestimmter Objekte durch Injections steuern zu können. Dadurch soll der Code deutlich lesbarer, einfacher zu testen und besser wiederverwendbar gestaltet werden. \\
+RoboGuice wurde ebenfalls von Google entwickelt und nutzt die Vorteile und Techniken des Guice Frameworkes für Android aus. Es besticht vor allem durch den Vorteil, zum Beispiel Views und Ressourcen mittels Dependency Injection einzufügen.  Im Folgenden ist ein Beispiel zu sehen, wie der Unterschied einer herkömmlichen Android Activity und einer, die das RoboGuice Framework nutzt, aussieht:\\
+\lstset{language=Java}
+\begin{lstlisting}[caption={Standard Android Activity \cite{roboguice-libaries} }]
+    class AndroidWay extends Activity { 
+    TextView name; 
+    ImageView thumbnail; 
+    LocationManager loc; 
+    Drawable icon; 
+    String myName; 
+
+    public void onCreate(Bundle savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.main);
+        name      = (TextView) findViewById(R.id.name); 
+        thumbnail = (ImageView) findViewById(R.id.thumbnail); 
+        loc       = (LocationManager) getSystemService(Activity.LOCATION_SERVICE); 
+        icon      = getResources().getDrawable(R.drawable.icon); 
+        myName    = getString(R.string.app_name); 
+        name.setText( "Hello, " + myName ); 
+    } 
+} 
+\end{lstlisting}
+\lstset{language=Java}
+\begin{lstlisting}[caption={Android Activity mit RoboGuice \cite{roboguice-libaries}}]
+   class RoboWay extends RoboActivity { 
+    @InjectView(R.id.name)             TextView name; 
+    @InjectView(R.id.thumbnail)        ImageView thumbnail; 
+    @InjectResource(R.drawable.icon)   Drawable icon; 
+    @InjectResource(R.string.app_name) String myName; 
+    @Inject                            LocationManager loc; 
+
+    public void onCreate(Bundle savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.main);
+        name.setText( "Hello, " + myName ); 
+    } 
+} 
+\end{lstlisting}
+Gut zu erkennen ist, dass mit Hilfe des RoboGuice Frameworkes die Attribute im Konstruktor nicht mehr explizit gesetzt werden müssen, sondern durch Annotationen vor dem Attribut eingefügt werden.\\
+Livegycle ist eine kleine Bibliothek, die für die durch Guice oder RoboJuice injizierten Objekte ein Lebenszyklusmanagement bereitstellt. Dieses Management erfolgt ebenfalls durch Annotationen und erlaubt es dem Entwicklern zu bestimmten Zeitpunkten (z.B. AfterInjection, PreDestroy, PostConstruction) das Objekt zu manipulieren oder es direkt an bestimmte Methoden zu übergeben.\cite{lifegycle-libaries}
+
+\subsubsection{SLF4J Android}
+Simple Logging Facade for Java Android ist eine umstrukturierte Variante der bekannten SLF4J Libary. welche es erlaubt zur Laufzeit den Code an vorhandene Loogingmechanismen (z.B. java.util.logging, log4j) anzubinden. Für Android wurde sie zudem mit einer simplen Weiterleitung aller Log-anfragen an den Android Logger erweitert. 
 \subsection{Module}
 
-Die \textbf{Gesture Remote} wurde bei der Konzeption in verschiedene Module aufgeteilt, um einerseits die Entwicklung parallel betreiben zu können, andererseits um die Applikation möglichst offen für Erweiterungen zu gestalten. Denkbar wären hier beispielsweise das Hinzufügen neuer Gesten oder Unterstützung anderer Mediaplayer bzw. weiterer Protokolle.
+Die \textbf{Gesture Remote} wurde bei der Konzeption in verschiedene Module aufgeteilt, um einerseits die Entwicklung parallel betreiben zu können, andererseits um die Applikation möglichst offen für Erweiterungen zu gestalten. Denkbar wären hier beispielsweise das Hinzufügen neuer Gesten oder Unterstützung anderer Mediaplayer bzw. weiterer Protokolle. Der Logger wird wie in der reinen Java-Variante benutzt, lediglich das Log-Level \textbf{TRACE} heißt in Android \textbf{VERBOSE}, die anderen besitzen den gleichen Namen. \cite{sfl4j-android-libaries}
 
 \subsubsection{Command}
-Im Commandmodul sind die einzelnen Kommandos für die Steuerung des VLC-Players hinterlegt. Dasich manche der Befehle auf den Player an sich oder auf die Steuerung der Playlist beziehen können, wurden diese Befehle auch im Code sinnvollerweise in \textit{playback} und \textit{playlist} gegliedert.
+Im Commandmodul sind die einzelnen Kommandos für die Steuerung des VLC-Players hinterlegt. Da sich manche der Befehle auf den Player an sich oder auf die Steuerung der Playlist beziehen können, wurden diese Befehle auch im Code sinnvollerweise in \textit{playback} und \textit{playlist} gegliedert.
 \subsubsection{Recognition}
 Das Recognition Modul ist wohl das wichtigste Modul in der Applikation. Hier werden die vom Nutzer eingegebenen Gesten verarbeitet. Dabei wird für die einfache Gesten (z.B. Tap, Fling/Scroll) ein gemeinsamer Erkennungsdienst eingesetzt, für komplexe Gesten wie z.B. Pinch/Zoom wird jeweils ein eigener Dienst benutzt (z.B. PinchZoomRecognizer).
 \subsubsection{Remote}
@@ -339,10 +343,56 @@ Dieses Modul deckt die Fernbedienungsfunktionen der Applikation ab. Einfach Befe
 Im Servermodul sind die Funktionalitäten hinterlegt, welche die Applikation mit einem laufenden VLC-Player verbindet. Die Verbindungsdaten für eine erfolgreiche Verbindung sind in einer SQLite Datenbank hinterlegt, welche sich auf jedem Android per Standard befindet. Durch diese Datenhaltung müssen keine externen Daten nachgeladen werden und der Benutzer kann auch in Netzwerken ohne Internetanschluss die Applikation benutzen.
 Die Daten werden in einer einzigen Tabelle gespeichert, welche die Felder für \textit{Adresse} und \textit{Port}, sowie einen Bezeichner \textit{Name} um den Servern eine Bezeichnung zu geben und sie somit einfacher identifizieren zu können. Ein Beispiel hierfür wäre: \\
 BHT-Server, 141.64.64.101:8080 (\textit{Name}, \textit{Adresse}:\textit{Port})\\
->>>>>>> first docs
 
-\subsection{Frameworks}
+newpage
+\subsection{Installationsanleitung}
+Um die Applikation auf dem Endgerät nutzen zu können sind folgende Schritte notwendig:
+\begin{enumerate}
+\item Den Quellcode aus dem Git Repository klonen \\git://github.com/whiskeysierra/gesture-remote.git
+\item Einbinden des Projektes in eine Entwicklungsumgebung z.B. Eclipse oder IntelliJ
+\item Das Projekt muss nun kompiliert werden, mit der Option es auf dem angeschlossen Mobilgerät zu deployen
+\item VLC Player mit HTTP Interface starten. Der einfachste Weg ist es, den Player über die Konsole (Unix: Bash, Mac: Terminal, Windows: cmd) mit dem Parameter \textit{--extraintf=http} zu starten. Anschließend zu Testzwecken sollten mindestens 2 verschiedene Mediendateien in die Playlist eingefügt werden.
+\item Auf dem Mobilgerät einen neuen Server mit der Adresse 127.0.0.1 und dem Port 8080 (Standardwerte für VLC) anlegen und verbinden
+\item Auf dem Hauptview die Gestensteuerung benutzen
+\end{enumerate}
 \newpage
+\subsection{Bedienungsanleitung}
+Screenshots, Schritt für Schritt-Anleitung
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_1.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_2.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_3.png}
+\caption{Caption}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_4.png}
+\caption{Caption}
+\end{figure}
+Ein optionales Zusatzfeature ist eine Seek-Funktion mit Preview, d.h. während die Seek-Geste (s. Abbildung \ref{fig:seek}) ausgeführt wird, soll ein Vorschaubild der aktuellen Suchposition innerhalb des Streams angezeigt werden. Abbildung \ref{fig:youtube} zeigt einen ähnlichen Ansatz des YouTube-Players. Hier wird auf einer Zeitleiste beim Mouse-Over ein entsprechender Tooltip angezeigt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{youtube.png}
+\caption{YouTube Preview Feature}
+\label{fig:youtube}
+\end{figure}
+
+Die konkrete Darstellung muss natürlich für Smartphones separat konzipiert und entwickelt werden. Die besondere technische Herausforderung wird das Interagieren der Remote- und der Streaming-Schnittstelle sein, da die einzelnen Vorschaubilder über den Stream beschafft werden müssen.
+
 \section{Fazit}
 Probleme mit doppeldeutigen Gesten und ungenauer Erkennung
 
@@ -359,8 +409,8 @@ Probleme mit doppeldeutigen Gesten und ungenauer Erkennung
 \listoftables
 
 \addcontentsline{toc}{section}{Quellcodeverzeichnis}
-\renewcommand\listoflistingscaption{Quellcodeverzeichnis}
-\listoflistings
+%\renewcommand\listoflistingscaption{Quellcodeverzeichnis}
+%\listoflistings
 
 \end{document}
 
