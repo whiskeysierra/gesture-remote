@@ -65,7 +65,7 @@
 \newpage
 \section{Projektidee}
 Zur Zeit steigt die Nachfrage nach gut bedienbaren Streamingsystemen für den Heimbereich immer weiter an. Dabei wird nicht mehr nur auf die Installation und Wartbarkeit wert gelegt, sondern auch auf die Bedienbarkeit. Und doch können fest installierte Geräte mit Streamingsoftware meist nur über die eingesetzten Peripheriegeräte gesteuert werden. \\
-Da sich in den meisten dieser Haushalte auch ein mobiles Endgerät befindet, wäre eine Steuerung der Software über diese Technologie von Vorteil. Dabei spielt vor allem die Art der Steuerung eine wichtige Rolle. Der Benutzer soll nicht nur eine Oberfläche mit entsprechenden Schaltflächen vorfinden, sondern prägnante Gesten, die sich wie bei älteren Geräten vorfindbar, für eine simple Benutzung sorgen. Damit würde, wie bei klassischen TV-Geräten, eine Fernbedienung geschaffen die sich an den einprägsamen Bewegungen (in diesem Fall Gesten) orientiert. \\
+Da sich in den meisten dieser Haushalte auch ein mobiles Endgerät befindet, wäre eine Steuerung der Software über diese Technologie von Vorteil. Dabei spielt vor allem die Art der Steuerung eine wichtige Rolle. Der Benutzer soll nicht nur eine Oberfläche mit entsprechenden Schaltflächen vorfinden, sondern prägnante Gesten, die sich wie bei älteren Geräten vor findbar, für eine simple Benutzung sorgen. Damit würde, wie bei klassischen TV-Geräten, eine Fernbedienung geschaffen die sich an den einprägsamen Bewegungen (in diesem Fall Gesten) orientiert. \\
 Dieses Projekt soll sich mit der Umsetzung einer solchen Remotesteuerung von einem mobilen Endgerät aus, zur Streamingsoftware beschäftigen.
 
 Es gibt frei verfügbare Apps mit ähnlichen Ansätzen. Am interessantesten ist wohl die \textit{Android VLC Remote} App \cite{android-vlc-remote}. Das größte Manko an Apps dieser Art ist, unserer Meinung nach, dass die Möglichkeiten des Smartphones nicht voll ausgereizt werden und damit die Möglichkeiten für eine größere Nutzerzufriedenheit nicht in dem Maße ausgeschöpft werden wie sie könnten.
@@ -110,6 +110,16 @@ Abbildung \ref{fig:gestures} zeigt einige Gesten die ad hoc in Frage kommen sowi
 \end{figure}
 
 \subsection{Preview}
+Ein optionales Zusatzfeature ist eine Seek-Funktion mit Preview, d.h. während die Seek-Geste (s. Abbildung \ref{fig:seek}) ausgeführt wird, soll ein Vorschaubild der aktuellen Suchposition innerhalb des Streams angezeigt werden. Abbildung \ref{fig:youtube} zeigt einen ähnlichen Ansatz des YouTube-Players. Hier wird auf einer Zeitleiste beim Mouse-Over ein entsprechender Tooltip angezeigt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{youtube.png}
+\caption{YouTube Preview Feature}
+\label{fig:youtube}
+\end{figure}
+
+Die konkrete Darstellung muss natürlich für Smartphones separat konzipiert und entwickelt werden. Die besondere technische Herausforderung wird das Interagieren der Remote- und der Streaming-Schnittstelle sein, da die einzelnen Vorschaubilder über den Stream beschafft werden müssen.
 
 \begin{figure}[H]
 \centering
@@ -173,48 +183,11 @@ Die Entwicklung des Projektes wird zu gleichen Teilen auf die Entwickler Schönb
 
 \section{Dokumentation}
 \subsection{VLC mit HTTP-Interface starten}
-Ab Version 2.x wurde das HTTP-Interface durch eine LUA Schnittstelle ersetzt, um die Wiedergabe scripten zu können. Das HTTP-Interface wird dabei nicht mehr standardmäßig mitgeladen und ist somit auch nicht nach Programmstart verfügbar. Um das Interface für den Remotezugriff dennoch nutzen zu können,  muss das Programm mit dem Parameter \textit{--extraintf=http} gestartet werden. Dieses wird dann in der Konsolenausgabe bestätigt. \\
-
+Ab Version 2.x wurde das HTTP-Interface durch eine LUA Schnittstelle ersetzt, um die Wiedergabe scripten zu können. Das HTTP-Interface wird dabei nicht mehr standardmäßig mit geladen und ist somit auch nicht nach Programmstart verfügbar. Um das Interface für den Remotezugriff dennoch nutzen zu können,  muss das Programm mit dem Parameter \textit{--extraintf=http} gestartet werden. Dieses wird dann in der Konsolenausgabe bestätigt. \\
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{Screenshot_5.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_6.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_7.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_8.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_9.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_10.png}
-\caption{Caption}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Screenshot_11.png}
-\caption{Caption}
+\includegraphics[width=0.75\textwidth]{cli-output.jpg}
+\caption{VLC Konsolenausgabe}
 \end{figure}
 Hier ist gut sichtbar, dass die HTTP-Requests über das LUA-Interface geleitet werden. Die Aktivierung in den Einstellungen, wie es vor Version 2.x möglich war, existiert nicht mehr. Weiterhin können mit den Parametern  \textit{--http-host \textbf{host}} und \textit{--http-port \textbf{port}} die IP, sowie der Port angegeben werden, unter dem das Interface zu erreichen ist. Um dies zu testen kann man jetzt die Adresse \textit{http://host:port} (Standard: \textit{http:127.0.0.1:8080}) in einem Webbrowser aufrufen und erhält bei Erfolg ein HTML-Interface zur Steuerung. \\
 Die einzelnen Bedienelemente senden bei Benutzung eine jQuery-Request an den VLC-Player und benutzt dabei die \textit{command:value} Syntax.
@@ -245,7 +218,7 @@ Die folgenden Befehle konnten gefunden werden:\\
   pl\_next & Zum nächsten Titel springen \\
   pl\_empty & Playlist leeren \\
   pl\_loop & Loop einschalten \\
-  pl\_repeat & Plalisteintrag wiederholen \\
+  pl\_repeat & Playlisteintrag wiederholen \\
   pl\_random & Zufallsmodus ein/aus \\
   \hline
 \end{tabular}
@@ -258,7 +231,7 @@ Für die Einstellungen wie Lautstärke oder Seek kann aus dem Quelltext wenig er
 
 \newpage
 \subsection{Architektur}
-Die Applikation wurde auf den Grundlagen von Java 6 und dem Androidsystem Version 2.3 entwickelt. Die Entscheidung für diese Version wurde getroffen, da Android 2.3 für die meisten etwas älteren Geräte die momentane aktuellste Betriebssytemversion darstellt (ca. 63,6\% \cite{marktanteil-android} ) . Eine Entwicklung für Android "Ice Cream Sandwich" (Android 4.0) würde die älteren Geräte von der Benutzung ausschließen und nur ca. 11\% der Endgeräte abdecken \cite{marktanteil-android}. \\
+Die Applikation wurde auf den Grundlagen von Java 6 und dem Androidsystem Version 2.3 entwickelt. Die Entscheidung für diese Version wurde getroffen, da Android 2.3 für die meisten etwas älteren Geräte die momentane aktuellste Betriebssystemversion darstellt (ca. 63,6\% \cite{marktanteil-android} ) . Eine Entwicklung für Android "Ice Cream Sandwich" (Android 4.0) würde die älteren Geräte von der Benutzung ausschließen und nur ca. 11\% der Endgeräte abdecken \cite{marktanteil-android}. \\
 Weiterhin wurden bei der Entwicklung die Frameworks Guava, Guice, RoboGuice, Lifegycle und Slf4j Android benutzt auf die im Folgenden eingegangen wird.
 \subsubsection{Guava}
 Das Guava Framefowrk von Google wurde eingesetzt, um eine Publisher-Subscriber Kommunikation, in Guava \textbf{EventBus} genannt, zwischen den Komponenten in der Applikation aufzubauen. Dieser Kommunikation wird mit Hilfe von Annotation im Code realisiert, somit müssen die Komponenten, anders als bei EventListener, nicht explizit untereinander registriert sein. Zum Vergleich ein Beispielcode mit "klassischer" Javalösung und der selbe Code mit Guava:\\
@@ -283,9 +256,9 @@ Das Guava Framefowrk von Google wurde eingesetzt, um eine Publisher-Subscriber K
      }
    }
 \end{lstlisting}
-Durch die Verwendung der Guava Libaries wird der Code einerseits deutlich lesbarer, da die Intention des EventHandlings besser hervortritt, andereseits auch kürzer, da die anonymen Listener Implementierungen wegfallen und somit lediglich der notwendige Code für die Reaktion auf das Event implementiert werden muss.
+Durch die Verwendung der Guava Libaries wird der Code einerseits deutlich lesbarer, da die Intention des EventHandlings besser hervortritt, andererseits auch kürzer, da die anonymen Listener Implementierungen wegfallen und somit lediglich der notwendige Code für die Reaktion auf das Event implementiert werden muss.
 \subsubsection{Guice, RoboGuice \& Lifegycle}
-Gucie ist ein von Google entwickletes Framework für Java, welches erlaubt, Java-Klassen mittels Dependency Injection zu konfigurieren. Die Hauptintention von Guice ist es, keine Factorymethoden mehr schreiben zu müssen, sondern die Erstellung und Bindung bestimmter Objekte durch Injections steuern zu können. Dadurch soll der Code deutlich lesbarer, einfacher zu testen und besser wiederverwendbar gestaltet werden. \\
+Gucie ist ein von Google entwickeltes Framework für Java, welches erlaubt, Java-Klassen mittels Dependency Injection zu konfigurieren. Die Hauptintention von Guice ist es, keine Factorymethoden mehr schreiben zu müssen, sondern die Erstellung und Bindung bestimmter Objekte durch Injections steuern zu können. Dadurch soll der Code deutlich lesbarer, einfacher zu testen und besser wiederverwendbar gestaltet werden. \\
 RoboGuice wurde ebenfalls von Google entwickelt und nutzt die Vorteile und Techniken des Guice Frameworkes für Android aus. Es besticht vor allem durch den Vorteil, zum Beispiel Views und Ressourcen mittels Dependency Injection einzufügen.  Im Folgenden ist ein Beispiel zu sehen, wie der Unterschied einer herkömmlichen Android Activity und einer, die das RoboGuice Framework nutzt, aussieht:\\
 \lstset{language=Java}
 \begin{lstlisting}[caption={Standard Android Activity \cite{roboguice-libaries} }]
@@ -352,51 +325,85 @@ Um die Applikation auf dem Endgerät nutzen zu können sind folgende Schritte no
 \item Einbinden des Projektes in eine Entwicklungsumgebung z.B. Eclipse oder IntelliJ
 \item Das Projekt muss nun kompiliert werden, mit der Option es auf dem angeschlossen Mobilgerät zu deployen
 \item VLC Player mit HTTP Interface starten. Der einfachste Weg ist es, den Player über die Konsole (Unix: Bash, Mac: Terminal, Windows: cmd) mit dem Parameter \textit{--extraintf=http} zu starten. Anschließend zu Testzwecken sollten mindestens 2 verschiedene Mediendateien in die Playlist eingefügt werden.
-\item Auf dem Mobilgerät einen neuen Server mit der Adresse 127.0.0.1 und dem Port 8080 (Standardwerte für VLC) anlegen und verbinden
+\item Auf dem Mobilgerät einen neuen Server mit der Adresse des Rechners und dem Port 8080 (Standardwerte für VLC) anlegen und verbinden
 \item Auf dem Hauptview die Gestensteuerung benutzen
 \end{enumerate}
 \newpage
 
 \subsection{Bedienungsanleitung}
-Screenshots, Schritt für Schritt-Anleitung
-
+Nach dem Starten der Applikation auf dem Mobilgerät landet man auf dem Welcomescreen der Anwendung. 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{Screenshot_1.png}
-\caption{Caption}
+\caption{Startbildschirm}
 \end{figure}
-
+Anschließend kann man mit einem Tap auf das Werkzeugsymbol zu den verfügbaren Servern gelangen. Hier sind alle gespeicherten Serverdaten aufgelistet und können angewählt werden. Da bei Auslieferung der Applikation noch keine Daten hinterlegt sind, wird mit einem Tap auf das Plus Symbol in der rechten oberen Ecke die Maske für die Erstellung eines neuen Datensatzes aufgerufen.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{Screenshot_2.png}
-\caption{Caption}
+\caption{Servermanagement}
 \end{figure}
-
+In der Maske muss nun mindestens die Adresse oder der Hostname, sowie der Port eingegeben werden, unter dem der Rechner erreichbar ist, auf dem der VLC Player läuft. Es wird geraten, einen bezeichnenden Namen zu vergeben, um die Daten auseinanderhalten zu können.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{Screenshot_3.png}
-\caption{Caption}
+\caption{Neuen Server anlegen}
+Als Beispiel wurde hier der Server mit dem Namen PC unter der Adresse 192.168.100.20:8080 angelegt.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_5.png}
+\caption{Neuer Datensatz}
 \end{figure}
-
+\end{figure}
+Mittels eines Tap auf den Datensatz öffnet sich ein PopUp Menü, in dem man entweder den Datensatz löschen, editieren oder mittels der Daten eine Verbindung zum VLC herstellen kann.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{Screenshot_4.png}
-\caption{Caption}
+\caption{PopUp Menü}
 \end{figure}
-Ein optionales Zusatzfeature ist eine Seek-Funktion mit Preview, d.h. während die Seek-Geste (s. Abbildung \ref{fig:seek}) ausgeführt wird, soll ein Vorschaubild der aktuellen Suchposition innerhalb des Streams angezeigt werden. Abbildung \ref{fig:youtube} zeigt einen ähnlichen Ansatz des YouTube-Players. Hier wird auf einer Zeitleiste beim Mouse-Over ein entsprechender Tooltip angezeigt.
-
+Nach der Auswahl des Menüpunktes "Choose" versucht sich die Applikation mit dem Server als Remote zu verbinden. Bei Erfolg wird auf dem Startbildschirm die Nachricht \textit{Connected to \textbf{ServerName}} angezeigt. Nun kann der Player mit den Gesten gesteuert werden
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{youtube.png}
-\caption{YouTube Preview Feature}
-\label{fig:youtube}
+\includegraphics[width=0.75\textwidth]{Screenshot_6.png}
+\caption{Verbindung hergestellt}
+\end{figure}
+Die Abbildungen \ref{fig:play} und \ref{fig:pause} zeigen die Ausgabe nach der Tap Geste, also dem einmaligen Berühren des Bedienfeldes. Diese Geste schaltet vom Abspielmodus in den Pausemodus und umgekehrt.  
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_7.png}
+\caption{Play}
+\label{fig:play}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_8.png}
+\caption{Pause}
+\label{fig:pause}
+\end{figure}
+An der rechte Seite der Applikation befindet sich das Bedienfeld für die Lautstärkeregelung. Mittels der Drag-Geste (kontinuierliches Zeichnen) wird die Lautstärke Prozentual in die Gestenrichtung angepasst. Damit soll eine Schiebereglerregelung emuliert werden, wie sie z.B. beim Mischpult noch genutzt wird. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_9.png}
+\caption{Lautstärkeregelung}
+\end{figure}
+Die Drag-Geste wird außerdem am unteren Rand des Bildschirmes erkannt, allerdings nur, wenn sie hier horizontal ausgeführt wird. Durch diese Geste wird der Player angewiesen vor- bzw. zurückzuspulen. Durch einen Tap wird der Spulvorgang unterbrochen und der Player wird wieder in den Abspielmodus versetzt.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_10.png}
+\caption{Seek-Funktion}
+\end{figure}
+Da man nicht immer vor- bzw. zurückspulen will, sondern ganze Titel oder Kapitelmarken überspringen will, wurde auf der Hauptview die Swipe-Geste eingefügt. sie erlaubt es, zur nächsten Markierung in die Richtung der Geste zu springen. So kann man sich durch eine Playlist, aber auch durch z.B. DVD-Kapitel navigieren.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Screenshot_11.png}
+\caption{Nächster/Vorheriger Titel}
 \end{figure}
 
-Die konkrete Darstellung muss natürlich für Smartphones separat konzipiert und entwickelt werden. Die besondere technische Herausforderung wird das Interagieren der Remote- und der Streaming-Schnittstelle sein, da die einzelnen Vorschaubilder über den Stream beschafft werden müssen.
-
 \section{Fazit}
-Probleme mit doppeldeutigen Gesten und ungenauer Erkennung
-
+Bei der Entwicklung der Gestenerkennung traten 2 große Probleme auf. Einerseits musste die Benutzung einer selbst entwickelten Geste, bei der man kontinuierlich einen Kreis zeichnet, fallen gelassen werden. Die Gestenerkennung arbeitet hier nicht schrittweise, sondern versucht erst nach der Beendigung des Zeichenvorganges die Geste anhand der aufgenommenen Punkte zu erkennen. Einen einfachen Kreis zu zeichnen und diesen  erkennen lassen stellt kein Problem dar, das fortlaufende Zeichnen, um z.B. die Spulgeschwindigkeit einzustellen, allerdings schon, da hier erst nach dem letzten Punkt die Geste erkannt wird und diese ist dann kein Kreis mehr, sondern eine unregelmäßige Spirale mit sich überlagernden Pfaden. Somit musste diese Geste aus der Applikation entfallen. Dafür wurde der horizontale und vertikale Drag für das Spulen bzw. die Lautstärke eingeführt. Dies führte allerdings zur zweiten Problematik der Gestenerkennung. Die Drag Geste ist der Swipe Geste sehr ähnlich und könnte einerseits zu Verwirrungen des Benutzers, aber auch zu Problemen der Unterscheidung bei der Erkennung führen. Daher wurde entschieden, den Drag Gesten bestimmte Bereiche zuzuweisen, in denen sie ausgeführt werden können. In den anderen Bereich sind dann nur nie Swipe-Gesten gültig. Um die Anwendung trotzdem intuitiv bedienbar zu gestalten, wurden diese Bereiche so gewählt, dass sie den bekannten Programmen oder Geräten ähneln. So wurde, wie in den meisten Videoplayern üblich, der untere Bereich dafür genutzt um vor- oder zurückzuspulen. Für die Lautstärke wurde der rechte seitliche Bereich gewählt, um so einen Schieberegler zu emulieren, wie er bei Stereoanlagen oder Mischpulten üblich ist, da sich wie bereits beschrieben, die Drehregelung nicht umsetzen lies.\\
+Ein geplantes Playlistmanagment auf dem Mobilgerät wurde verworfen, da der Bildschirm zu klein ist, um vernünftige Drag\&Drop Funktionalität über Listen mit mehr als 5 Einträgen gewährleisten zu können. Auch das hinzufügen von Titeln kann über das Mobilgerät nicht erfolgen, da die Dialoge vom Betriebssystem des Rechners auf das Mobilgerät übertragen werden müssen und die Handlings darauf wieder zurück an den Rechner. Dies ist in der momentanen Entwicklungsstufe nicht möglich.\\
+Aus Zeitgründen wurden die Previewfunktionalitäten von Videodaten nicht in das Projekt integriert. Einerseits muss der VLC dafür in 2 Modi laufen, einem fernsteuerbaren und einem streambaren und dies funktionierte in den Testfällen nur selten. Außerdem war die korrekte Übertragung und Darstellung auf das Mobilgerät problematisch. \\
+Über den Zeitpunkt dieser Vorlesung hinweg, kann das Projekt dennoch erweitert werden und bietet ein guten Ansatzpunkt zur Weiterentwicklung und Überlegungen, wie man die Problematiken lösen kann, sodass die Features doch noch genutzt werden können. Eine weitere Möglichkeit wäre der Ansatz einer Schnittstellenentwicklung für weitere Medienplayer, womit man ein breiteres Spektrum der Anwendungsunterstützung anbieten könnte. Alles in allem bietet die dieses abgeschlossene Projekt vielfältige Möglichkeiten der Weiterentwicklung und kann auch produktiv bereits genutzt werden. 
 \newpage
 \addcontentsline{toc}{section}{Literatur}
 \nocite{*}
@@ -410,8 +417,8 @@ Probleme mit doppeldeutigen Gesten und ungenauer Erkennung
 \listoftables
 
 \addcontentsline{toc}{section}{Quellcodeverzeichnis}
-%\renewcommand\listoflistingscaption{Quellcodeverzeichnis}
-%\listoflistings
+\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+\lstlistoflistings
 
 \end{document}
 
